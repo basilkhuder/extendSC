@@ -22,7 +22,6 @@ crToSeurat <- function(directory){
                         set_colnames(barcode$V1) %>%
                         set_rownames(features$V1) %>%
                         CreateSeuratObject()
-    
   }
   return(matrix.list)
 }
