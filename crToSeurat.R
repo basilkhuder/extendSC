@@ -1,9 +1,9 @@
-#Takes a directory with standard CellRanger counts output (raw/filtered/analysis) and generates a 
-#Seurat object based upon the filtered CR counts
+# Takes a directory with standard CellRanger counts output (raw/filtered/analysis) and generates a 
+# Seurat object based upon the filtered CR counts
 
 crToSeurat <- function(directory){ 
   
-  folders <- list.dirs(directory,recursive = FALSE)
+  folders <- list.dirs(directory, recursive = FALSE)
   matrix.list <- vector(mode = "list", length = length(folders))
   
   for (i in 1:length(folders)){ 
