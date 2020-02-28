@@ -5,26 +5,22 @@ crToSeurat <- function(directory){
   
   folders <- list.dirs(directory,recursive = FALSE)
   matrix.list <- vector(mode = "list", length = length(folders))
-  features.list <- vector(mode = "list", length = length(folders))
-  barcode.list <- vector(mode = "list", length = length(folders))
   
   for (i in 1:length(folders)){ 
     filtered.folder <- list.files(path = folders[[i]], pattern = "filtered")
     full.dir <- paste(folders[[i]],filtered.folder,sep = "/")
     
     matrix.list[[i]] <- readMM(paste(full.dir,list.files(path = full.dir, pattern = "matrix"),sep = "/"))
-    
-    features.list[[i]] <- read.delim(paste(full.dir,list.files(path = full.dir, pattern = "features"),sep = "/"), 
+    features <- read.delim(paste(full.dir,list.files(path = full.dir, pattern = "features"),sep = "/"), 
                                      header = FALSE,
                                      stringsAsFactors = FALSE)
-    
-    barcode.list[[i]] <- read.delim(paste(full.dir,list.files(path = full.dir, pattern = "barcode"),sep = "/"),
+    barcodes <- read.delim(paste(full.dir,list.files(path = full.dir, pattern = "barcode"),sep = "/"),
                                     header = FALSE,
                                     stringsAsFactors = FALSE)
     
     matrix.list[[i]] <- matrix.list[[i]] %>%
-                        set_colnames(barcode.list[[i]]$V1) %>%
-                        set_rownames(features.list[[i]]$V1) %>%
+                        set_colnames(barcode$V1) %>%
+                        set_rownames(features$V1) %>%
                         CreateSeuratObject()
     
   }
