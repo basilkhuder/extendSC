@@ -12,7 +12,7 @@ crToSeurat <- function(directory){
     filtered.folder <- list.files(path = folders[[i]], pattern = "filtered")
     full.dir <- paste(folders[[i]],filtered.folder,sep = "/")
     
-    matrix.list[[i]] <- Matrix::readMM(paste(full.dir,list.files(path = full.dir, pattern = "matrix"),sep = "/"))
+    matrix.list[[i]] <- readMM(paste(full.dir,list.files(path = full.dir, pattern = "matrix"),sep = "/"))
     
     features.list[[i]] <- read.delim(paste(full.dir,list.files(path = full.dir, pattern = "features"),sep = "/"), 
                                      header = FALSE,
@@ -22,12 +22,11 @@ crToSeurat <- function(directory){
                                     header = FALSE,
                                     stringsAsFactors = FALSE)
     
-    colnames(matrix.list[[i]]) <- barcode.list[[i]]$V1
-    rownames(matrix.list[[i]]) <- features.list[[i]]$V1
-    matrix.list[[i]] <- Seurat::CreateSeuratObject(matrix.list[[i]])
+    matrix.list[[i]] <- matrix.list[[i]] %>%
+                        set_colnames(barcode.list[[i]]$V1) %>%
+                        set_rownames(features.list[[i]]$V1) %>%
+                        CreateSeuratObject()
+    
   }
-  
   return(matrix.list)
-  
 }
-
