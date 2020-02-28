@@ -1,8 +1,9 @@
 # Takes a directory with standard CellRanger counts output (raw/filtered/analysis) and generates a 
 # Seurat object based upon the filtered CR counts
 
-crToSeurat <- function(directory){ 
+crToSeurat <- function(directory, parameters){ 
   
+  parameters <- rjson::fromJSON("parameters.json")
   folders <- list.dirs(directory, recursive = FALSE)
   matrix.list <- vector(mode = "list", length = length(folders))
   
@@ -19,7 +20,8 @@ crToSeurat <- function(directory){
     matrix.list[[i]] <- matrix.list[[i]] %>%
                         set_colnames(barcode$V1) %>%
                         set_rownames(features$V1) %>%
-                        CreateSeuratObject()
+                        CreateSeuratObject(cells = parameters[["min_cells"]], 
+                                           min_features = parameters[["min_features"]])
   }
   return(matrix.list)
 }
