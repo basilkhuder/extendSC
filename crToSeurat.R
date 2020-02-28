@@ -1,5 +1,5 @@
 #Takes a directory with standard CellRanger counts output (raw/filtered/analysis) and generates a 
-#Seurat object based upon the filtered folder
+#Seurat object based upon the filtered CR counts
 
 crToSeurat <- function(directory){ 
   
