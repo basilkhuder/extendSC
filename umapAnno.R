@@ -1,6 +1,6 @@
 # Returns a UMAP embedding with cell counts as cluster labels
 
-function <- umapAnno(seurat.obj,
+umapAnno <- function(seurat.obj,
                      point.size = 1,
                      label.size = 8){  
   
