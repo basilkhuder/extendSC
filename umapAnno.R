@@ -1,8 +1,10 @@
-# Annotate clusters on UMAP embedding with cell numbers
+# Returns a UMAP embedding with cell counts as cluster labels
 
-function <- umapAnno(seurat.obj) { 
-`%>%` <- magrittr::`%>%`
+function <- umapAnno(seurat.obj,
+                     point.size = 1,
+                     label.size = 8){  
   
+`%>%` <- magrittr::`%>%`
 extract.clusters <- data.table::setDT(FetchData(seurat_obj, vars = c("seurat_clusters")), 
                           keep.rownames = TRUE)
                           
@@ -13,6 +15,10 @@ cluster.counts <- extract.clusters %>%
 new.cluster.ids <- condition.extract.count$n
 names(x = new.cluster.ids) <- levels(x = seurat_obj)
 seurat_obj <- RenameIdents(object = seurat_obj, new.cluster.ids)
-DimPlot(object = seurat_obj, reduction = 'umap', pt.size =1, label = TRUE, label.size = 8)
+DimPlot(object = seurat_obj, 
+        reduction = 'umap', 
+        pt.size = point.size, 
+        label = TRUE, 
+        label.size = label.size)
 seurat_obj@active.ident <- seurat_obj$seurat_clusters
 } 
