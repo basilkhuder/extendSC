@@ -1,13 +1,14 @@
 # Annotate clusters on UMAP embedding with cell numbers
 
 function <- umapAnno(seurat.obj) { 
-
+`%>%` <- magrittr::`%>%`
+  
 extract.clusters <- data.table::setDT(FetchData(seurat_obj, vars = c("seurat_clusters")), 
                           keep.rownames = TRUE)
                           
 cluster.counts <- extract.clusters %>%
-                  group_by(seurat_clusters) %>%
-                  tally()
+                  dplyr::group_by(seurat_clusters) %>%
+                  dplyr::tally()
 
 new.cluster.ids <- condition.extract.count$n
 names(x = new.cluster.ids) <- levels(x = seurat_obj)
