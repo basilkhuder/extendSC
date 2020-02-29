@@ -2,7 +2,7 @@
 
 function <- umapAnno(seurat.obj) { 
 
-extract.clusters <- setDT(FetchData(seurat_obj, vars = c("seurat_clusters")), 
+extract.clusters <- data.table::setDT(FetchData(seurat_obj, vars = c("seurat_clusters")), 
                           keep.rownames = TRUE)
                           
 cluster.counts <- extract.clusters %>%
