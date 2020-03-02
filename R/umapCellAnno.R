@@ -1,6 +1,6 @@
 # Takes a Seurat object and returns a UMAP embedding with cell counts as labels
 
-umapAnno <- function(seurat.obj,
+umapCellAnno <- function(seurat.obj,
                      point.size = 1,
                      label.size = 8){  
   
