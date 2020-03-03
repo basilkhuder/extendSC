@@ -18,7 +18,7 @@ umapAnno <- function(seurat.obj,
     data.table::setattr("names",levels(seurat.obj))
     
   if (counts.as.title == TRUE){ 
-    title = paste(scales::comma(sum(cluster.counts$n)),"Cells")
+    title = paste(scales::comma(sum(cluster.counts)),"Cells")
   }
   
   if (use.colors == ""){
