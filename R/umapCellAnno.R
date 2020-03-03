@@ -15,19 +15,19 @@ umapAnno <- function(seurat.obj,
     dplyr::group_by(seurat_clusters) %>%
     dplyr::tally()
   
-  new.cluster.ids <- cluster.counts$n
-  names(x = new.cluster.ids) <- levels(x = seurat.obj)
-  seurat.obj <- RenameIdents(object = seurat.obj, new.cluster.ids)
+  names(x = cluster.counts$n) <- levels(x = seurat.obj)
+  seurat.obj <- RenameIdents(object = seurat.obj, cluster.counts$n)
   
   if (counts.as.title == TRUE){ 
     title = paste(scales::comma(sum(cluster.counts$n)),"Cells")
   }
   
   if (use.colors == ""){
-    hues <- seq(15, 375, length = length(unique(extract.clusters$seurat_clusters)) + 1)
-    use.colors <- hcl(h = hues, l = 65, c = 100)[1:length(unique(extract.clusters$seurat_clusters))]
+    use.colors <- hcl(h = seq(15, 375, length = length(unique(extract.clusters$seurat_clusters)) + 1), 
+                      c = 100,
+                      l = 65)[1:length(unique(extract.clusters$seurat_clusters))]
   }
-    
+  
   print(DimPlot(object = seurat.obj, 
                 reduction = 'umap', 
                 pt.size = point.size, 
@@ -35,4 +35,10 @@ umapAnno <- function(seurat.obj,
                 label.size = label.size,
                 cols = use.colors) + ggtitle(title))
   seurat.obj@active.ident <- seurat.obj$seurat_clusters
+  
 } 
+
+
+
+
+
