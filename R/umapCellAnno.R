@@ -20,9 +20,14 @@ umapAnno <- function(seurat.obj,
   seurat.obj <- RenameIdents(object = seurat.obj, new.cluster.ids)
   
   if (counts.as.title == TRUE){ 
-    title <- paste(scales::comma(sum(cluster.counts$n)),"cells")
-    }
+    title = paste(scales::comma(sum(cluster.counts$n)),"Cells")
+  }
   
+  if (use.colors == ""){
+    hues <- seq(15, 375, length = length(unique(extract.clusters$seurat_clusters)) + 1)
+    use.colors <- hcl(h = hues, l = 65, c = 100)[1:length(unique(extract.clusters$seurat_clusters))]
+  }
+    
   print(DimPlot(object = seurat.obj, 
                 reduction = 'umap', 
                 pt.size = point.size, 
