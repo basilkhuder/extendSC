@@ -19,7 +19,7 @@ umapAnno <- function(seurat.obj,
   seurat.obj <- RenameIdents(object = seurat.obj, new.cluster.ids)
   
   if (counts.as.title == TRUE){ 
-    title = paste(scales::comma(sum(cluster.counts$n)),"cells")
+    title <- paste(scales::comma(sum(cluster.counts$n)),"cells")
     }
   
   print(DimPlot(object = seurat.obj, 
