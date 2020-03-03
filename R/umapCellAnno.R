@@ -4,7 +4,8 @@ umapAnno <- function(seurat.obj,
                      point.size = 1,
                      label.size = 8,
                      title = "",
-                     counts.as.title = FALSE){  
+                     counts.as.title = FALSE,
+                     use.colors = ""){  
   
   `%>%` <- magrittr::`%>%`
   extract.clusters <- data.table::setDT(FetchData(seurat.obj, vars = c("seurat_clusters")), 
@@ -26,6 +27,7 @@ umapAnno <- function(seurat.obj,
                 reduction = 'umap', 
                 pt.size = point.size, 
                 label = TRUE, 
-                label.size = label.size) + ggtitle(title))
+                label.size = label.size,
+                cols = use.colors) + ggtitle(title))
   seurat.obj@active.ident <- seurat.obj$seurat_clusters
 } 
