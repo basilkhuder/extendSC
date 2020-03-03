@@ -1,9 +1,10 @@
 # Takes a Seurat object and returns a UMAP embedding with cell counts as labels
 
-umapCellAnno <- function(seurat.obj,
+umapAnno <- function(seurat.obj,
                      point.size = 1,
                      label.size = 8,
-                     title = ""){  
+                     title = "",
+                     counts.as.title = FALSE){  
   
   `%>%` <- magrittr::`%>%`
   extract.clusters <- data.table::setDT(FetchData(seurat.obj, vars = c("seurat_clusters")), 
@@ -13,13 +14,18 @@ umapCellAnno <- function(seurat.obj,
     dplyr::group_by(seurat_clusters) %>%
     dplyr::tally()
   
-  new.cluster.ids <- condition.extract.count$n
+  new.cluster.ids <- cluster.counts$n
   names(x = new.cluster.ids) <- levels(x = seurat.obj)
   seurat.obj <- RenameIdents(object = seurat.obj, new.cluster.ids)
+  
+  if (counts.as.title == TRUE){ 
+    title = paste(scales::comma(sum(cluster.counts$n)),"cells")
+    }
+  
   print(DimPlot(object = seurat.obj, 
-          reduction = 'umap', 
-          pt.size = point.size, 
-          label = TRUE, 
-          label.size = label.size) + ggtitle(title))
+                reduction = 'umap', 
+                pt.size = point.size, 
+                label = TRUE, 
+                label.size = label.size) + ggtitle(title))
   seurat.obj@active.ident <- seurat.obj$seurat_clusters
 } 
