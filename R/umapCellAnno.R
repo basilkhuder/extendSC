@@ -5,6 +5,7 @@ umapAnno <- function(seurat.obj,
                      label.size = 8,
                      title = "",
                      counts.as.title = FALSE,
+                     legend.pos = "right",
                      use.colors = ""){  
   
   `%>%` <- magrittr::`%>%`
@@ -18,13 +19,14 @@ umapAnno <- function(seurat.obj,
     data.table::setattr("names",levels(seurat.obj))
     
   if (counts.as.title == TRUE){ 
-    title <- paste(scales::comma(sum(cluster.counts)),"Cells")
+    title = paste(scales::comma(sum(cluster.counts$n)),"Cells")
   }
   
+  
   if (use.colors == ""){
-    use.colors <- hcl(h = seq(15, 375, length = length(cluster.counts) + 1), 
+    use.colors <- hcl(h = seq(15, 375, length = length(unique(extract.clusters$seurat_clusters)) + 1), 
                       c = 100,
-                      l = 65)[1:length(cluster.counts)]
+                      l = 65)[1:length(unique(extract.clusters$seurat_clusters))]
   }
     
   return(DimPlot(object = RenameIdents(object = seurat.obj, cluster.counts), 
@@ -32,5 +34,5 @@ umapAnno <- function(seurat.obj,
                 pt.size = point.size, 
                 label = TRUE, 
                 label.size = label.size,
-                cols = use.colors) + ggtitle(title))
+                cols = use.colors) + ggtitle(title) + theme(legend.position = legend.pos))    
 } 
