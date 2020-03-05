@@ -19,7 +19,7 @@ crToSeurat <- function(directory, parameters){
                                     stringsAsFactors = FALSE)
     matrix.list[[i]] <- matrix.list[[i]] %>%
                         set_colnames(barcodes$V1) %>%
-                        set_rownames(features$V1) %>%
+                        set_rownames(features$V2) %>%
                         CreateSeuratObject(min.cells = parameters[["min_cells"]], 
                                            min.features = parameters[["min_features"]])
   }
