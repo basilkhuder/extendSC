@@ -4,7 +4,6 @@
 crToSeurat <- function(directory, parameters){ 
   
   `%>%` <- magrittr::`%>%`
-  parameters <- rjson::fromJSON("parameters.json")
   folders <- list.dirs(directory, recursive = FALSE)
   matrix.list <- vector(mode = "list", length = length(folders))
   
@@ -19,10 +18,10 @@ crToSeurat <- function(directory, parameters){
                                     header = FALSE,
                                     stringsAsFactors = FALSE)
     matrix.list[[i]] <- matrix.list[[i]] %>%
-                        set_colnames(barcode$V1) %>%
+                        set_colnames(barcodes$V1) %>%
                         set_rownames(features$V1) %>%
-                        CreateSeuratObject(cells = parameters[["min_cells"]], 
-                                           min_features = parameters[["min_features"]])
+                        CreateSeuratObject(min.cells = parameters[["min_cells"]], 
+                                           min.features = parameters[["min_features"]])
   }
   return(matrix.list)
 }
