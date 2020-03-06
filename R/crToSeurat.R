@@ -1,7 +1,10 @@
-# Takes a directory with standard CellRanger counts output (raw/filtered/analysis) and generates a 
-# Seurat object based upon the filtered CR counts
+# Takes a directory with standard CellRanger counts output (raw/filtered/analysis) and returns a list of Seurat objects.
+# With the merge parameter, object list can be merged with sample ids provided
 
-crToSeurat <- function(directory, parameters){ 
+crToSeurat <- function(directory, 
+                       min.cells = 3,
+                       min.features = 200
+                       merge = NULL){ 
   
   `%>%` <- magrittr::`%>%`
   folders <- list.dirs(directory, recursive = FALSE)
@@ -20,8 +23,11 @@ crToSeurat <- function(directory, parameters){
     matrix.list[[i]] <- matrix.list[[i]] %>%
                         set_colnames(barcodes$V1) %>%
                         set_rownames(features$V2) %>%
-                        CreateSeuratObject(min.cells = parameters[["min_cells"]], 
-                                           min.features = parameters[["min_features"]])
+                        CreateSeuratObject(min.cells = min.cells, 
+                                           min.features = min.features)
   }
+  if (!is.null(merge)){
+    matrix.list <- merge(matrix.list[[1]], y = seurat.obj[-1], add.cell.ids = merge)
+  } 
   return(matrix.list)
 }
