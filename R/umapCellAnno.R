@@ -9,7 +9,7 @@ umapAnno <- function(seurat.obj,
                      use.colors = ""){  
   
   `%>%` <- magrittr::`%>%`
-  extract.clusters <- data.table::setDT(FetchData(seurat.obj, vars = c("seurat_clusters")), 
+  extract.clusters <- data.table::setDT(Seurat::FetchData(seurat.obj, vars = c("seurat_clusters")), 
                                         keep.rownames = TRUE)
   
   cluster.counts <- extract.clusters %>%
@@ -29,7 +29,7 @@ umapAnno <- function(seurat.obj,
                       l = 65)[1:length(unique(extract.clusters$seurat_clusters))]
   }
     
-  return(DimPlot(object = RenameIdents(object = seurat.obj, cluster.counts), 
+  return(Seurat::DimPlot(object = RenameIdents(object = seurat.obj, cluster.counts), 
                 reduction = 'umap', 
                 pt.size = point.size, 
                 label = TRUE, 
