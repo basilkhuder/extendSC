@@ -21,7 +21,7 @@ crToSeurat <- function(directory, parameters, sample.names = NULL, merge = FALSE
     matrix.list[[i]] <- matrix.list[[i]] %>%
       magrittr::set_colnames(barcodes$V1) %>%
       magrittr:set_rownames(features$V2) %>%
-      CreateSeuratObject(min.cells = parameters[["min.cells"]],
+      Seurat::CreateSeuratObject(min.cells = parameters[["min.cells"]],
                          min.features = parameters[["min.features"]],
                          project = sample.names[i] )
   }
