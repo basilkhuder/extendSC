@@ -43,5 +43,5 @@ Takes a directory with the standard CellRanger counts output
 sample should have an individual folder.
 
     crToSeurat(directory = "directory",
-               sample.names = c("sample.one,"sample.two")
+               sample.names = c("sample.one,"sample.two"),
                merge = TRUE)
