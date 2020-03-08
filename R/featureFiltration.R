@@ -24,4 +24,3 @@ featureFiltration <- function(seurat.obj, parameters){
   seurat.obj<- subset(seurat.obj,cells = do.call(rbind, filter.list)$rn)
   return(seurat.obj)
 }
-}
