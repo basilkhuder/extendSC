@@ -2,7 +2,7 @@
 # With the merge parameter, object list can be merged with sample ids provided.
 # A parameters JSON file contains all Seurat parameters. 
 
-crToSeurat <- function(directory, parameters, sample.names = NULL, merge = FALSE){ 
+crToSeurat <- function(directory, parameters, sample.names, merge = FALSE){ 
   `%>%` <- magrittr::`%>%`
   folders <- list.dirs(directory, recursive = FALSE)
   matrix.list <- vector(mode = "list", length = length(folders))
