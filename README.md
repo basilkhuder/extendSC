@@ -1,8 +1,8 @@
 scRNA-Seq R Functions
 ================
 
-An array of R functions that extend the functionalities of popular
-scRNA-Seq packages. All parameters are added to a *parameters.json* file
+An array of R functions that extend the functionalities of Seurat
+and scRNA-Seq. All parameters are added to a *parameters.json* file
 that is read by invoking the following:
 
 ``` r
