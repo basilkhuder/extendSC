@@ -39,7 +39,7 @@ parameters
 ### ***crToSeurat.R***:
 
 Takes a directory with the standard CellRanger counts output
-(raw/filtered/analysis) and returns a list of Seurat objects. Each
+(raw/filtered/analysis) and returns a list of Seurat objects or a merged Seurat object with ```merge = TRUE```. Each
 sample should have an individual folder.
 
     crToSeurat(directory = "directory",
