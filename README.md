@@ -40,8 +40,18 @@ parameters
 
 Takes a directory with the standard CellRanger counts output
 (raw/filtered/analysis) and returns a list of Seurat objects or a merged Seurat object with ```merge = TRUE```. Each
-sample should have an individual folder.
-
-    crToSeurat(directory = "directory",
+sample should have an individual folder, as provided in the following directory structure example:
+- directory
+    - sample.one
+        - analysis
+        - filtered_gene_bc_matrices
+        - raw_gene_bc_matrices
+    - sample.two
+         - analysis
+         - filtered_gene_bc_matrices
+         - raw_gene_bc_matrices
+```
+crToSeurat(directory = "directory",
                sample.names = c("sample.one,"sample.two"),
                merge = TRUE)
+```
