@@ -1,5 +1,6 @@
 scRNA-Seq R Functions
 ================
+#### Basil Khuder
 
 An array of R functions that extend the functionalities of Seurat
 and scRNA-Seq. All parameters are added to a *parameters.json* file
@@ -54,4 +55,24 @@ sample should have an individual folder, as provided in the following directory 
 crToSeurat(directory = "directory",
                sample.names = c("sample.one,"sample.two"),
                merge = TRUE)
+```
+
+### ***featureFiltration.R***:
+
+Filters cells from a Seurat object based upon the amount of features and percentage of mitochondrial genes. If sample is made up of individuals, each individual is filtered separately based upon specific probability quantiles. Default parameters for quantiles are: 
+
+```
+    ## $mito.low
+    ## [1] 0.02
+    ## 
+    ## $mito.high
+    ## [1] 0.975
+    ## 
+    ## $feature.cut
+    ## [1] 0.975
+    ## 
+```
+
+```
+featureFiltration <- function(seurat.obj)                      
 ```
