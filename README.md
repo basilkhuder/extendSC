@@ -53,8 +53,8 @@ sample should have an individual folder, as provided in the following directory 
          - raw_gene_bc_matrices
 ``` r
 crToSeurat(directory = "directory",
-               sample.names = c("sample.one,"sample.two"),
-               merge = TRUE)
+           sample.names = c("sample.one,"sample.two"),
+           merge = TRUE)
 ```
 
 ### ***featureFiltration.R***:
