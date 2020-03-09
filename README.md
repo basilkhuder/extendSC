@@ -74,5 +74,5 @@ Filters cells from a Seurat object based upon the amount of features and percent
 ```
 
 ```
-featureFiltration <- function(seurat.obj, parameters)                      
+featureFiltration(seurat.obj, parameters)                      
 ```
