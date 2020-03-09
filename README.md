@@ -51,7 +51,7 @@ sample should have an individual folder, as provided in the following directory 
          - analysis
          - filtered_gene_bc_matrices
          - raw_gene_bc_matrices
-```
+``` r
 crToSeurat(directory = "directory",
                sample.names = c("sample.one,"sample.two"),
                merge = TRUE)
@@ -73,6 +73,7 @@ Filters cells from a Seurat object based upon the amount of features and percent
     ## 
 ```
 
-```
-featureFiltration(seurat.obj, parameters)                      
+``` r
+featureFiltration(object = seurat.obj, 
+                  parameters = parameters)                      
 ```
