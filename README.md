@@ -3,7 +3,7 @@ scRNA-Seq R Functions
 #### Basil Khuder
 ---------------------------
 An array of R functions that extend the functionalities of Seurat
-and scRNA-Seq. All parameters are added to a *parameters.json* file
+and scRNA-Seq. For some of the functions (```crToSeurat()```, ```processSeurat()```), parameters are added to a *parameters.json* file
 that is read by invoking the following:
 
 ``` r
