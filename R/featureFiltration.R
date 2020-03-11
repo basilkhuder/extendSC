@@ -24,5 +24,5 @@ featureFiltration <- function(seurat.obj,
     ident.current <- ident.current[ident.current$nFeature_RNA < feat.cut[[i]]]
     filter.list[[i]] <- ident.current
   }
-  return(subset(seurat.obj,cells = do.call(rbind, filter.list)$rn))
+  return(subset(seurat.obj, cells = do.call(rbind, filter.list)$rn))
 }
