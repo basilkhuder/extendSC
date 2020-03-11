@@ -13,10 +13,10 @@ umapCellAnno <- function(seurat.obj,
                                         keep.rownames = TRUE)
   
   cluster.counts <- extract.clusters %>%
-    dplyr::group_by(seurat_clusters) %>%
-    dplyr::tally() %>%
-    dplyr::pull(n) %>%
-    data.table::setattr("names",levels(seurat.obj))
+                    dplyr::group_by(seurat_clusters) %>%
+                    dplyr::tally() %>%
+                    dplyr::pull(n) %>%
+                    data.table::setattr("names", levels(seurat.obj))
     
   if (counts.as.title == TRUE){ 
     title = paste(scales::comma(sum(cluster.counts$n)),"Cells")
