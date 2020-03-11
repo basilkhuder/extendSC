@@ -3,6 +3,7 @@ seuratProcess <- function(object = seurat.obj,
                           cluster.res = 0.2,
                           seed.use = 24,
                           n.cores = NULL) {
+  `%>%` <- magrittr::`%>%`
   
   if(!is.null(n.cores)){
     ifelse(n.cores > future::availableCores()[[1]], 
@@ -20,6 +21,3 @@ seuratProcess <- function(object = seurat.obj,
   return(seurat.obj)
 }
                                      
-
-
-                          
