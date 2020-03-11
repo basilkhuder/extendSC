@@ -29,10 +29,10 @@ umapAnno <- function(seurat.obj,
                       l = 65)[1:length(unique(extract.clusters$seurat_clusters))]
   }
     
-  return(Seurat::DimPlot(object = RenameIdents(object = seurat.obj, cluster.counts), 
+  return(Seurat::DimPlot(object = Seurat::RenameIdents(object = seurat.obj, cluster.counts), 
                 reduction = 'umap', 
                 pt.size = point.size, 
                 label = TRUE, 
                 label.size = label.size,
-                cols = use.colors) + ggtitle(title) + theme(legend.position = legend.pos))    
+                cols = use.colors) + gplot2::gggtitle(title) + ggplot2::theme(legend.position = legend.pos))    
 } 
