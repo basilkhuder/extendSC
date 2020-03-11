@@ -1,4 +1,4 @@
-seuratProcess <- function(object = seurat.obj,
+processSeurat <- function(object = seurat.obj,
                           dims = 1:50,
                           cluster.res = 0.2,
                           seed.use = 24,
