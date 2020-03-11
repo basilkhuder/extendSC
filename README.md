@@ -54,7 +54,8 @@ sample should have an individual folder, as provided in the following directory 
 ``` r
 crToSeurat(directory = "directory",
            sample.names = c("sample.one,"sample.two"),
-           merge = TRUE)
+           merge = TRUE,
+           parameters = parameters)
 ```
 
 ### ***featureFiltration.R***:
