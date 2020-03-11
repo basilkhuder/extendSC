@@ -1,9 +1,7 @@
-extendSC
-================
+#### An array of R functions that extend the functionalities of Seurat, SingleR, and other scRNA-Seq packages. 
 #### Basil Khuder
 ---------------------------
-An array of R functions that extend the functionalities of Seurat, SingleR,
-and other scRNA-Seq packages. For some of the functions (```crToSeurat()```), parameters are added to a *parameters.json* file
+extendSC adds functionalities to scRNA-Seq workflows for Seurat and SingleR. For some of the functions (```crToSeurat()```), parameters are added to a *parameters.json* file
 that is read by invoking the following:
 
 ``` r
