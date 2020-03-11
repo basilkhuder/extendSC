@@ -1,4 +1,4 @@
-scRNA-Seq R Functions
+extendSC
 ================
 #### Basil Khuder
 ---------------------------
