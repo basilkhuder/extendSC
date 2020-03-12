@@ -9,11 +9,5 @@ seuratToSingleR <- function(object = seurat.obj,
   SingleR::SingleR(test = as.SingleCellExperiment(seurat_obj), 
                    ref = seurat_obj_ag, labels = labels, 
                    method = method)
- 
-
-
-                            
-                            
-                            
-                            
-} 
+                   
+  } 
