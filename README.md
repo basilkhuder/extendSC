@@ -72,12 +72,16 @@ featureFiltration(object = seurat.obj,
 
 ### ***umapCellAnno.R***:
 
-```umapCellAnno()``` takes a processed Seurat object and returns a ggplot UMAP embedding with cell counts as labels. 
+```umapCellAnno()``` takes a processed Seurat object and returns a ggplot UMAP embedding with cell counts as labels or counts in the legend. 
 
 ``` r
-umapCellAnno(object = seurat.obj,
-             point.size = 1,
-             label.size = 8,
-             counts.as.title = TRUE,
-             legend.pos = "right")            
+umapCellAnno <- function(seurat.obj,
+                         point.size = 1,
+                         label.size = 8,
+                         title = "",
+                         counts.as.title = FALSE,
+                         counts.as.labels = FALSE,
+                         legend = TRUE,
+                         counts.in.legend = TRUE,
+                         use.cols = "")       
 ```
