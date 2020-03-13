@@ -20,19 +20,8 @@ parameters
 
     ## $min.cells
     ## [1] 3
-    ## 
     ## $min.features
     ## [1] 200
-    ## 
-    ## $mito.low
-    ## [1] 0.02
-    ## 
-    ## $mito.high
-    ## [1] 0.975
-    ## 
-    ## $feature.cut
-    ## [1] 0.975
-    ## 
     ## $cluster_resolution
     ## [1] 0.2
 
@@ -68,6 +57,17 @@ featureFiltration(object = seurat.obj,
                   mito.low = .02,
                   mito.high = .975
                   feature.cut = .975)                      
+```
+### ***processSeurat.R***:
+
+Pipes together several downstream Seurat steps including variance-stabilizing transformation, PCA, clustering and nonlinear dimensionality reduction. Also allows for parallelization using the ```future``` package. 
+
+``` r
+processSeurat(object = seurat.obj,
+              dims = 1:50,
+              cluster.res = 0.2,
+              seed.use = 24,
+              n.cores = NULL)               
 ```
 
 ### ***umapCellAnno.R***:
