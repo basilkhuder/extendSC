@@ -86,7 +86,7 @@ umapCellAnno(seurat.obj,
              use.cols = "")       
 ```
 ### ***seuratToSingleR.R***:
-```seuratToSingleR()``` takes a Seurat object to be used as a SingleR reference, any ```SingleCellExperiment``` object you're interested in annotating, and returns either a ```PlotScoreHeatmap()``` or a table with annotations. 
+```seuratToSingleR()``` takes an annotated Seurat object to be used as a SingleR reference, any ```SingleCellExperiment``` object you're interested in annotating, and returns either a ```PlotScoreHeatmap()``` or a table with annotations. 
 
 ``` r
 seuratToSingleR(reference = seurat.obj,
