@@ -72,7 +72,7 @@ processSeurat(object = seurat.obj,
 
 ### ***umapCellAnno.R***:
 
-```umapCellAnno()``` takes a processed Seurat object and returns a ggplot UMAP embedding with cell counts as labels or counts in the legend. 
+Takes a processed Seurat object and returns a ggplot UMAP embedding with cell counts as labels or counts in the legend. 
 
 ``` r
 umapCellAnno(seurat.obj,
@@ -85,3 +85,14 @@ umapCellAnno(seurat.obj,
              counts.in.legend = TRUE,
              use.cols = "")       
 ```
+### ***seuratToSingleR.R***:
+```seuratToSingleR()``` takes a Seurat object to be used as a SingleR reference, any ```SingleCellExperiment``` object you're interested in annotating, and returns either a ```PlotScoreHeatmap()``` or a table with annotations. 
+
+``` r
+seuratToSingleR(reference = seurat.obj,
+                sce.obj = sce.obj,
+                heatmap = TRUE,
+                table = TRUE)
+```
+
+
