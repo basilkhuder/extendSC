@@ -1,6 +1,6 @@
 umapCellAnno <- function(seurat.obj,
                          point.size = 1,
-                         label.size = 8,
+                         label.size = 10,
                          title = "",
                          legend.title.size = 0,
                          legend.text.size = 15,
@@ -22,12 +22,12 @@ umapCellAnno <- function(seurat.obj,
   }
   
   umap <- as.data.frame(Embeddings(seurat.obj, reduction = "umap")) %>%
-                        dplyr::mutate(Clusters = Seurat::FetchData(seurat.obj, vars = vars)[[1]]) %>%
-                        magrittr::set_rownames(NULL)
+    dplyr::mutate(Clusters = Seurat::FetchData(seurat.obj, vars = vars)[[1]]) %>%
+    magrittr::set_rownames(NULL)
   extract.clusters <- data.table::setDT(Seurat::FetchData(seurat.obj, vars = vars),keep.rownames = TRUE)
   cluster.counts <- extract.clusters %>%
-                    dplyr::group_by_at(2) %>%
-                    dplyr::tally()
+    dplyr::group_by_at(2) %>%
+    dplyr::tally()
   
   if (is.null(use.cols)){
     use.cols <- hcl(h = seq(15, 375, length = length(unique(extract.clusters[[2]])) + 1), 
@@ -40,24 +40,24 @@ umapCellAnno <- function(seurat.obj,
   }
   
   p1 <- ggplot2::ggplot(data = umap, mapping = aes(x = UMAP_1, y = UMAP_2)) +
-        ggplot2::geom_point(aes(color = Clusters), size = .5) +
-        ggplot2::theme_bw() + 
-        ggplot2::theme(
-          plot.background = element_blank(),
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          panel.border = element_blank()) +
-        ggplot2::theme(axis.line = element_line(color = 'black'),
-                       legend.title = element_text(size = 0),
-                       legend.text = element_text(size = 15),
-                       axis.title.x = element_text(size = 15),
-                       axis.title.y = element_text(size = 15),
-                       axis.text.y.left = element_text(size = 15),
-                       axis.text.x.bottom = element_text(size = 15)) +
-        ggplot2::guides(colour = guide_legend(override.aes = list(size=10))) 
-    
-    p1 <- Seurat::LabelClusters(p1, id = "Clusters", size = 10, repel = TRUE) + 
-          ggplot2::ggtitle(title)
+    ggplot2::geom_point(aes(color = Clusters), size = point.size) +
+    ggplot2::theme_bw() + 
+    ggplot2::theme(
+      plot.background = element_blank(),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank()) +
+    ggplot2::theme(axis.line = element_line(color = 'black'),
+                   legend.title = element_text(size = legend.title.size),
+                   legend.text = element_text(size = legend.text.size),
+                   axis.title.x = element_text(size = axis.title.x.size),
+                   axis.title.y = element_text(size = axis.title.y.size),
+                   axis.text.y.left = element_text(size = axis.text.y.left.size),
+                   axis.text.x.bottom = element_text(size = axis.text.x.bottom.size)) +
+    ggplot2::guides(colour = guide_legend(override.aes = list(size=10))) 
+  
+  p1 <- Seurat::LabelClusters(p1, id = "Clusters", size = label.size, repel = TRUE) + 
+    ggplot2::ggtitle(title)
   
   if (isTRUE(counts.in.legend)){ 
     labels <- as.character(glue::glue("{cluster.counts[[1]]}\n ({cluster.counts[[2]]} Cells)"))
