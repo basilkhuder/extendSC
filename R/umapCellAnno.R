@@ -12,7 +12,7 @@ umapCellAnno <- function(seurat.obj,
                          counts.as.labels = FALSE,
                          legend = TRUE,
                          counts.in.legend = TRUE,
-                         use.cols = ""){
+                         use.cols = NULL){
   
   `%>%` <- magrittr::`%>%`
   if(!is.null(seurat.obj$Seurat_Assignment)) { 
@@ -29,7 +29,7 @@ umapCellAnno <- function(seurat.obj,
                     dplyr::group_by_at(2) %>%
                     dplyr::tally()
   
-  if (use.cols == ""){
+  if (is.null(use.cols)){
     use.cols <- hcl(h = seq(15, 375, length = length(unique(extract.clusters[[2]])) + 1), 
                     c = 100,
                     l = 65)[1:length(unique(extract.clusters[[2]]))]
