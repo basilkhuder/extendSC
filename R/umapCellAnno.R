@@ -15,19 +15,23 @@ umapCellAnno <- function(seurat.obj,
                          use.cols = NULL){
   
   `%>%` <- magrittr::`%>%`
-  if(!is.null(seurat.obj$Seurat_Assignment)) { 
+  cnames <- try(bal.all.control$Seurat_Assignment, silent = TRUE)
+  if(!class(cnames) == "try-error"){ 
     vars <- "Seurat_Assignment"
-  } else { 
-    vars <- "seurat_clusters"
-  }
-  
+  } else {
+      vars <- "seurat_clusters"
+    }
+
   umap <- as.data.frame(Embeddings(seurat.obj, reduction = "umap")) %>%
     dplyr::mutate(Clusters = Seurat::FetchData(seurat.obj, vars = vars)[[1]]) %>%
+    dplyr::arrange(desc(Clusters)) %>%
     magrittr::set_rownames(NULL)
   extract.clusters <- data.table::setDT(Seurat::FetchData(seurat.obj, vars = vars),keep.rownames = TRUE)
   cluster.counts <- extract.clusters %>%
     dplyr::group_by_at(2) %>%
-    dplyr::tally()
+    dplyr::tally() %>%
+    dplyr::arrange(desc(n))
+  
   
   if (is.null(use.cols)){
     use.cols <- hcl(h = seq(15, 375, length = length(unique(extract.clusters[[2]])) + 1), 
