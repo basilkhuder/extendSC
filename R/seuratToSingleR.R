@@ -10,5 +10,5 @@ seuratToSingleR <- function(ref = seurat.obj,
   SR.output <- SingleR::SingleR(test = sce.obj, 
                    ref = reference_avg, labels = labels, 
                    method = method)
-  return(pheatmap::pheatmap(SR.output))
+  return(pheatmap::pheatmap(SR.output$scores))
   } 
