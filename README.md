@@ -2,28 +2,7 @@
 #### An array of R functions that extend the functionalities of Seurat, SingleR, and other scRNA-Seq packages. 
 #### Basil Khuder
 ---------------------------
-extendSC adds functionalities to scRNA-Seq workflows for the Seurat and SingleR packages. For some of the functions (```crToSeurat()```), parameters are added to a *parameters.json* file
-that is read by invoking the following:
-
-``` r
-parameters <- rjson::fromJSON(file = "parameters.json")
-parameters[["min.cells"]]
-```
-
-    ## [1] 3
-
-The default parameters are:
-
-``` r
-parameters
-```
-
-    ## $min.cells
-    ## [1] 3
-    ## $min.features
-    ## [1] 200
-    ## $cluster_resolution
-    ## [1] 0.2
+extendSC adds functionalities to scRNA-Seq workflows for the Seurat and SingleR packages. 
 
 ### ***crToSeurat.R***:
 
@@ -43,12 +22,11 @@ sample should have an individual folder, as provided in the following directory 
 crToSeurat(directory = "directory",
            sample.names = c("sample.one,"sample.two"),
            merge = TRUE,
-           parameters = parameters)
+           min_cells = 3,
+           min_features = 200)
 ```
 
 ### ***featureFiltration.R***:
-
-**_Update (3/11/20):_** *```featureFiltration()```no longer uses the JSON parameters file. Instead, ```mito.low```, ```mito.high``` and ```feature.cut``` are parameters set within the function.*
 
 Filters cells from a Seurat object based upon the amount of features and percentage of mitochondrial genes. If sample is made up of individuals, each individual is filtered separately based upon specific probability quantiles. Default quantile parameters are: 
 
