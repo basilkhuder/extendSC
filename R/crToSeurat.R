@@ -30,7 +30,7 @@ crToSeurat <- function(directory,
   }
   if (isTRUE(merge)){
     matrix.list <- merge(matrix.list[[1]], 
-                         y = matrix.list[-1], 
+                         matrix.list[-1], 
                          add.cell.ids = sample.names)
   }
   return(matrix.list)
