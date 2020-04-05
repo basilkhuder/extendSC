@@ -1,10 +1,10 @@
 # Takes a directory with standard CellRanger counts output (raw/filtered/analysis) and returns a list of Seurat objects.
 # With the merge parameter, object list can be merged with sample ids provided.
-# A parameters JSON file contains all Seurat parameters. 
 
 crToSeurat <- function(directory, 
-                       parameters, 
-                       sample.names = "sample", 
+                       min_cells = 3,
+                       min_features = 200, 
+                       sample_names = c("sample"), 
                        merge = FALSE){ 
   `%>%` <- magrittr::`%>%`
   folders <- list.dirs(directory, recursive = FALSE)
@@ -22,12 +22,13 @@ crToSeurat <- function(directory,
                            stringsAsFactors = FALSE)
     matrix.list[[i]] <- matrix.list[[i]] %>%
       magrittr::set_colnames(barcodes$V1) %>%
-      magrittr::set_rownames(features$V2) %>%
-      Seurat::CreateSeuratObject(min.cells = parameters[["min.cells"]],
-                         min.features = parameters[["min.features"]],
-                         project = sample.names[i] )
-      
+      magrittr::set_rownames(features$V2) 
   }
+  
+  matrix.list <- lapply(seq_along(matrix.list), function(x) 
+    Seurat::CreateSeuratObject(matrix.list[[x]], min.cells = min.cells,
+                               min.features = min.features,
+                               project = sample_names[x]))
   
   if (length(matrix.list) == 1){ 
     matrix.list <- matrix.list[[1]]
@@ -37,7 +38,7 @@ crToSeurat <- function(directory,
   if (isTRUE(merge)){
     matrix.list <- merge(matrix.list[[1]], 
                          matrix.list[-1],
-                         add.cell.ids = sample.names)
+                         add.cell.ids = sample_names)
   }
   return(matrix.list)
 }
