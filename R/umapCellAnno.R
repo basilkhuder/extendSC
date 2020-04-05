@@ -14,7 +14,7 @@ umapCellAnno <- function(seurat.obj,
                          use.cols = NULL){
   
   `%>%` <- magrittr::`%>%`
-  cnames <- try(bal.all.control$Seurat_Assignment, silent = TRUE)
+  cnames <- try(seurat.obj$Seurat_Assignment, silent = TRUE)
   if(!class(cnames) == "try-error"){ 
     vars <- "Seurat_Assignment"
   } else {
