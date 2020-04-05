@@ -26,8 +26,8 @@ crToSeurat <- function(directory,
   }
   
   matrix.list <- lapply(seq_along(matrix.list), function(x) 
-    Seurat::CreateSeuratObject(matrix.list[[x]], min.cells = min.cells,
-                               min.features = min.features,
+    Seurat::CreateSeuratObject(matrix.list[[x]], min.cells = min_cells,
+                               min.features = min_features,
                                project = sample_names[x]))
   
   if (length(matrix.list) == 1){ 
