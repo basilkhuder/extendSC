@@ -4,7 +4,7 @@
 
 crToSeurat <- function(directory, 
                        parameters, 
-                       sample.names, 
+                       sample.names = "sample", 
                        merge = FALSE){ 
   `%>%` <- magrittr::`%>%`
   folders <- list.dirs(directory, recursive = FALSE)
@@ -17,20 +17,26 @@ crToSeurat <- function(directory,
     features <- read.delim(paste(full.dir,list.files(path = full.dir, pattern = "features"),sep = "/"), 
                            header = FALSE,
                            stringsAsFactors = FALSE)
-    barcodes <- read.delim(paste(full.dir,
-                                 list.files(path = full.dir, pattern = "barcode"),sep = "/"),
+    barcodes <- read.delim(paste(full.dir,list.files(path = full.dir, pattern = "barcode"),sep = "/"),
                            header = FALSE,
                            stringsAsFactors = FALSE)
     matrix.list[[i]] <- matrix.list[[i]] %>%
       magrittr::set_colnames(barcodes$V1) %>%
-      magrittr:set_rownames(features$V2) %>%
+      magrittr::set_rownames(features$V2) %>%
       Seurat::CreateSeuratObject(min.cells = parameters[["min.cells"]],
                          min.features = parameters[["min.features"]],
                          project = sample.names[i] )
+      
   }
+  
+  if (length(matrix.list) == 1){ 
+    matrix.list <- matrix.list[[1]]
+    }
+  
+  
   if (isTRUE(merge)){
     matrix.list <- merge(matrix.list[[1]], 
-                         matrix.list[-1], 
+                         matrix.list[-1],
                          add.cell.ids = sample.names)
   }
   return(matrix.list)
