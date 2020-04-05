@@ -1,5 +1,4 @@
 # extendSC
-#### An array of R functions that extend the functionalities of Seurat, SingleR, and other scRNA-Seq packages. 
 #### Basil Khuder
 ---------------------------
 extendSC adds functionalities to scRNA-Seq workflows for the Seurat and SingleR packages. 
