@@ -9,7 +9,6 @@ umapCellAnno <- function(seurat.obj,
                          axis.text.y.left.size = 15,
                          axis.text.x.bottom.size = 15,
                          counts.as.title = FALSE,
-                         counts.as.labels = FALSE,
                          legend = TRUE,
                          counts.in.legend = TRUE,
                          use.cols = NULL){
