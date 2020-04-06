@@ -29,7 +29,7 @@ umapCellAnno <- function(seurat.obj,
     dplyr::tally() %>%
     dplyr::arrange(desc(n))
   umap$Clusters <- factor(umap$Clusters , 
-                          levels = cluster.counts$Seurat_Assignment)
+                          levels = cluster.counts[[1]])
   umap <- umap[order(umap$Clusters), ]
   
   
