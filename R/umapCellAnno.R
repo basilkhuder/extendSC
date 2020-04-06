@@ -22,14 +22,15 @@ umapCellAnno <- function(seurat.obj,
     }
 
   umap <- as.data.frame(Embeddings(seurat.obj, reduction = "umap")) %>%
-    dplyr::mutate(Clusters = Seurat::FetchData(seurat.obj, vars = vars)[[1]]) %>%
-    dplyr::arrange(desc(Clusters)) %>%
-    magrittr::set_rownames(NULL)
+    dplyr::mutate(Clusters = Seurat::FetchData(seurat.obj, vars = vars)[[1]]) 
   extract.clusters <- data.table::setDT(Seurat::FetchData(seurat.obj, vars = vars),keep.rownames = TRUE)
   cluster.counts <- extract.clusters %>%
     dplyr::group_by_at(2) %>%
     dplyr::tally() %>%
     dplyr::arrange(desc(n))
+  umap$Clusters <- factor(umap$Clusters , 
+                          levels = cluster.counts$Seurat_Assignment)
+  umap <- umap[order(umap$Clusters), ]
   
   
   if (is.null(use.cols)){
