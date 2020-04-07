@@ -9,7 +9,9 @@ produceMarkers <- function(seurat.obj,
                             logfc.threshold = 0.25, 
                             max.cells.per.ident = cells.per.ident)
   markers %>% group_by(cluster) %>% top_n(n = 2, wt = avg_logFC)
-  write.table(markers %>% group_by(cluster), file= paste0(date,"markers.txt"), row.names=FALSE, sep="\t")
+  write.table(markers %>% group_by(cluster), 
+              file= paste0(date,"markers.txt"),
+              row.names=FALSE, sep="\t")
   if(top.gene.plot == TRUE){
     cluster.averages <- Seurat::AverageExpression(object = seurat.obj, return.seurat = TRUE)
     top3 <- markers %>% group_by(cluster) %>% top_n(n = 3, wt = avg_logFC)
