@@ -13,6 +13,6 @@ produceMarkers <- function(seurat.obj,
   if(top.gene.plot == TRUE){
     cluster.averages <- Seurat::AverageExpression(object = seurat.obj, return.seurat = TRUE)
     top3 <- markers %>% group_by(cluster) %>% top_n(n = 3, wt = avg_logFC)
-    print(pheatmap::pheatmap(GetAssayData(cluster.averages)[top3$gene,]))
+    print(pheatmap::pheatmap(GetAssayData(cluster.averages)[unique(top3$gene),]))
     }
   }
