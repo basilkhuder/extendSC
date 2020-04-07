@@ -20,18 +20,18 @@ umapCellAnno <- function(seurat.obj,
   } else {
       vars <- "seurat_clusters"
     }
-
+  
   umap <- as.data.frame(Embeddings(seurat.obj, reduction = "umap")) %>%
     dplyr::mutate(Clusters = Seurat::FetchData(seurat.obj, vars = vars)[[1]]) 
   extract.clusters <- data.table::setDT(Seurat::FetchData(seurat.obj, vars = vars),keep.rownames = TRUE)
+  
   cluster.counts <- extract.clusters %>%
     dplyr::group_by_at(2) %>%
     dplyr::tally() %>%
     dplyr::arrange(desc(n))
-  umap$Clusters <- factor(umap$Clusters , 
-                          levels = cluster.counts[[1]])
-  umap <- umap[order(umap$Clusters), ]
   
+  umap$Clusters <- factor(umap$Clusters , levels = cluster.counts[[1]])
+  umap <- umap[order(umap$Clusters), ]
   
   if (is.null(use.cols)){
     use.cols <- hcl(h = seq(15, 375, length = length(unique(extract.clusters[[2]])) + 1), 
@@ -43,8 +43,15 @@ umapCellAnno <- function(seurat.obj,
     title = paste(scales::comma(sum(cluster.counts$n)),"Cells")
   }
   
+  labels <- cluster.counts[[1]]
+  if (isTRUE(counts.in.legend)){ 
+    labels <- as.character(glue::glue("{cluster.counts[[1]]}\n ({cluster.counts[[2]]} Cells)"))
+    labels <- paste0(labels,"\n")
+  } 
+  
   p1 <- ggplot2::ggplot(data = umap, mapping = aes(x = UMAP_1, y = UMAP_2)) +
     ggplot2::geom_point(aes(color = Clusters), size = point.size) +
+    scale_color_manual(values = use.cols, labels = labels) + 
     ggplot2::theme_bw() + 
     ggplot2::theme(
       plot.background = element_blank(),
@@ -60,13 +67,6 @@ umapCellAnno <- function(seurat.obj,
                    axis.text.x.bottom = element_text(size = axis.text.x.bottom.size)) +
     ggplot2::guides(colour = guide_legend(override.aes = list(size=10))) 
   
-  p1 <- Seurat::LabelClusters(p1, id = "Clusters", size = label.size, repel = TRUE) + 
-    ggplot2::ggtitle(title)
-  
-  if (isTRUE(counts.in.legend)){ 
-    labels <- as.character(glue::glue("{cluster.counts[[1]]}\n ({cluster.counts[[2]]} Cells)"))
-    labels <- paste0(labels,"\n")
-    p1 <- p1 + ggplot2::scale_color_manual(values = use.cols, labels = labels)
-  }
-  return(p1)
+  return(Seurat::LabelClusters(p1, id = "Clusters", size = label.size, repel = TRUE) + 
+    ggplot2::ggtitle(title))
 } 
