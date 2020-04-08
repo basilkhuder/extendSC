@@ -6,7 +6,7 @@ featureFiltration <- function(seurat.obj,
                               mito.low = .02,
                               mito.high = .975,
                               feature.cut = .975){
-  seurat.obj <- PercentageFeatureSet(seurat.obj, pattern = "^MT-", col.name = "percent.mt")
+  seurat.obj <- Seurat::PercentageFeatureSet(seurat.obj, pattern = "^MT-", col.name = "percent.mt")
   ident <- data.table::setDT(Seurat::FetchData(seurat.obj, vars = c("orig.ident","percent.mt","nFeature_RNA")),
                              keep.rownames = TRUE) 
   ident.list <- as.list(unique(ident$orig.ident))
