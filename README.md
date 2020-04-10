@@ -1,6 +1,7 @@
-# extendSC
-#### Basil Khuder
----------------------------
+extendSC
+================
+*By: Basil Khuder*
+
 extendSC adds functionalities to scRNA-Seq workflows for the Seurat and SingleR packages. 
 
 ### ***crToSeurat.R***:
