@@ -17,7 +17,7 @@ processSeurat <- function(seurat.obj,
     FindNeighbors(dims = dims) 
   if(class(cluster.res) == "list"){ 
     res.range <- seq(cluster.res[[1]], cluster.res[[2]], cluster.res[[3]])
-    seurat.list <- lapply(seq_along(seurat.list), function(x)  
+    seurat.list <- lapply(seq_along(res.range), function(x)  
       FindClusters(seurat.obj, resolution = res.range[[x]]))
     seurat.list <- lapply(seq_along(seurat.list), function(x)  
       RunUMAP(seurat.list[[x]], reduction = "pca", dims = dims, seed.use = seed.use)) 
