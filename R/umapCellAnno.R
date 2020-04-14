@@ -10,6 +10,7 @@ umapCellAnno <- function(seurat.obj,
                          axis.text.x.bottom.size = 15,
                          counts.as.title = FALSE,
                          legend = TRUE,
+                         cell.legend.size = 10, 
                          counts.in.legend = TRUE,
                          use.cols = NULL){
   
@@ -20,11 +21,12 @@ umapCellAnno <- function(seurat.obj,
   } else {
       vars <- "seurat_clusters"
     }
-  
+
   umap <- as.data.frame(Embeddings(seurat.obj, reduction = "umap")) %>%
     dplyr::mutate(Clusters = Seurat::FetchData(seurat.obj, vars = vars)[[1]]) 
+
+    #magrittr::set_rownames(NULL)
   extract.clusters <- data.table::setDT(Seurat::FetchData(seurat.obj, vars = vars),keep.rownames = TRUE)
-  
   cluster.counts <- extract.clusters %>%
     dplyr::group_by_at(2) %>%
     dplyr::tally() %>%
@@ -32,6 +34,7 @@ umapCellAnno <- function(seurat.obj,
   
   umap$Clusters <- factor(umap$Clusters , levels = cluster.counts[[1]])
   umap <- umap[order(umap$Clusters), ]
+  
   
   if (is.null(use.cols)){
     use.cols <- hcl(h = seq(15, 375, length = length(unique(extract.clusters[[2]])) + 1), 
@@ -65,7 +68,7 @@ umapCellAnno <- function(seurat.obj,
                    axis.title.y = element_text(size = axis.title.y.size),
                    axis.text.y.left = element_text(size = axis.text.y.left.size),
                    axis.text.x.bottom = element_text(size = axis.text.x.bottom.size)) +
-    ggplot2::guides(colour = guide_legend(override.aes = list(size=10))) 
+    ggplot2::guides(colour = guide_legend(override.aes = list(size=cell.legend.size))) 
   
   return(Seurat::LabelClusters(p1, id = "Clusters", size = label.size, repel = TRUE) + 
     ggplot2::ggtitle(title))
