@@ -69,8 +69,7 @@ umapCellAnno(seurat.obj,
 ``` r
 seuratToSingleR(reference = seurat.obj,
                 sce.obj = sce.obj,
-                heatmap = TRUE,
-                table = TRUE)
+                heatmap = TRUE)
 ```
 
 
