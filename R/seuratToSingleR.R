@@ -6,9 +6,12 @@ seuratToSingleR <- function(ref = seurat.obj,
                             heatmap = TRUE){ 
   
   reference_avg <- as.matrix(Seurat::AverageExpression(seurat.obj, assay = "RNA")$RNA)
-  labels <- colnames(seurat.obj)
   SR.output <- SingleR::SingleR(test = sce.obj, 
-                   ref = reference_avg, labels = labels, 
+                   ref = reference_avg, labels = colnames(seurat.obj), 
                    method = method)
-  return(pheatmap::pheatmap(SR.output$scores))
-  } 
+  if(heatmap == TRUE){
+      return(pheatmap::pheatmap(SR.output$scores))
+    } else { 
+    return(SR.output$scores)
+  }
+} 
