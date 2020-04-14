@@ -1,7 +1,7 @@
 #Produce SingleR annotations on a custom reference made from a Seurat object 
 
 seuratToSingleR <- function(ref = seurat.obj,
-                            object = sce.obj
+                            object = sce.obj,
                             method = method,
                             heatmap = TRUE){ 
   
