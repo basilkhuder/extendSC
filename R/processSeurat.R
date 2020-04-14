@@ -6,7 +6,7 @@ processSeurat <- function(seurat.obj,
                           vars_to_regress = c("orig.ident","percent.mt"),
                           seed.use = 24,
                           n.cores = NULL) {
-  magrittr::`%>%`()
+  `%>%` <- magrittr::`%>%`
   if(!is.null(n.cores)){
     ifelse(n.cores > future::availableCores()[[1]], 
            stop("n.cores is greater than available system cores"),
