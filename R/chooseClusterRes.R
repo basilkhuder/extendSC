@@ -1,4 +1,5 @@
 chooseClusterRes <- function(seurat.obj, cluster.res){
+    `%>%` <- magrittr::`%>%`
     umap <- try(Embeddings(seurat.obj, reduction = "umap"))
     if(class(umap) == "try-error"){ 
         stop("No UMAP coordinates. Run the RunUMAP() function")
