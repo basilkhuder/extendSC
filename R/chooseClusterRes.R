@@ -6,7 +6,7 @@ chooseClusterRes <- function(seurat.obj, cluster.res){
     } 
     res.range <- seq(cluster.res[[1]], cluster.res[[2]], cluster.res[[3]])
     cluster.list <- lapply(seq_along(res.range), function(x)
-        Idents(FindClusters(seurat.obj, 
+        Seurat::Idents(Seurat::FindClusters(seurat.obj, 
                             resolution = res.range[[x]], 
                             verbose = FALSE)))
     cluster.list <- lapply(seq_along(cluster.list), function(x)
