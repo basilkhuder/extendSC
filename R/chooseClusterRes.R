@@ -20,4 +20,7 @@ chooseClusterRes <- function(seurat.obj, cluster.res){
       cluster.list[[i]]$V3 <- factor(cluster.list[[i]]$V3 , levels = cluster.counts[[i]][[1]])
       cluster.list[[i]] <- cluster.list[[i]][order(cluster.list[[i]]$V3), ]
     }
+    
+    clusterPlots(cluster.list = cluster.list,
+                 cluster.res = res.range)
 } 
