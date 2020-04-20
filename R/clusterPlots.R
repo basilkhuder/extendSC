@@ -14,17 +14,15 @@ clusterPlots <- function(cluster.list,
                          counts.in.legend = TRUE){
     
     `%>%` <- magrittr::`%>%`
-    image.list <- vector(mode = "list", length(length(cluster.list)))
     for(i in 1:length(cluster.list)){ 
         title <- glue::glue(cluster.res[[i]], " Cluster Resolution")
-        labels <- cluster.counts[[i]]$V3
         use.cols <- hcl(h = seq(15, 375, length = length(levels(cluster.list[[i]]$V3)) + 1), 
                         c = 100,
                         l = 65)[1:length(levels(cluster.list[[i]]$V3))]
         p1 <- ggplot2::ggplot(data = cluster.list[[i]], 
                               mapping = aes(x = UMAP_1, y = UMAP_2)) +
             ggplot2::geom_point(aes(color = V3), size = point.size) +
-            scale_color_manual(values = use.cols, labels = labels) + 
+            scale_color_manual(values = use.cols) + 
             ggplot2::theme_bw() + 
             ggplot2::theme(
                 plot.background = element_blank(),
