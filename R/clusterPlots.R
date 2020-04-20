@@ -10,18 +10,18 @@ clusterPlots <- function(cluster.list,
                          axis.text.y.left.size = 15,
                          axis.text.x.bottom.size = 15,
                          legend = TRUE,
-                         cell.legend.size = 10, 
+                         cell.legend.size = 5, 
                          counts.in.legend = TRUE){
     
     `%>%` <- magrittr::`%>%`
     for(i in 1:length(cluster.list)){ 
         title <- glue::glue(cluster.res[[i]], " Cluster Resolution")
-        use.cols <- hcl(h = seq(15, 375, length = length(levels(cluster.list[[i]]$V3)) + 1), 
+        use.cols <- hcl(h = seq(15, 375, length = length(levels(cluster.list[[i]]$Clusters)) + 1), 
                         c = 100,
-                        l = 65)[1:length(levels(cluster.list[[i]]$V3))]
+                        l = 65)[1:length(levels(cluster.list[[i]]$Clusters))]
         p1 <- ggplot2::ggplot(data = cluster.list[[i]], 
                               mapping = aes(x = UMAP_1, y = UMAP_2)) +
-            ggplot2::geom_point(aes(color = V3), size = point.size) +
+            ggplot2::geom_point(aes(color = Clusters), size = point.size) +
             scale_color_manual(values = use.cols) + 
             ggplot2::theme_bw() + 
             ggplot2::theme(
@@ -38,7 +38,7 @@ clusterPlots <- function(cluster.list,
                            axis.text.x.bottom = element_text(size = axis.text.x.bottom.size)) +
             ggplot2::guides(colour = guide_legend(override.aes = list(size=cell.legend.size))) 
         
-        print(Seurat::LabelClusters(p1, id = "V3", size = label.size, repel = TRUE) + 
+        print(Seurat::LabelClusters(p1, id = "Clusters", size = label.size, repel = TRUE) + 
                    ggplot2::ggtitle(title))
     } 
 } 
