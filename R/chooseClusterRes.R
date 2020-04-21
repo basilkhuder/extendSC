@@ -9,12 +9,13 @@ chooseClusterRes <- function(seurat.obj, cluster.res){
   umap <- data.table::setDT(umap, keep.rownames = TRUE)
   res.range <- seq(cluster.res[[1]], cluster.res[[2]], cluster.res[[3]])
   
-  cluster.list <- lapply(seq_along(res.range), function(x){
+  cluster.list <- lapply(seq_along(res.range), function(x)
     tibble::enframe(Seurat::Idents(Seurat::FindClusters(seurat.obj, 
                                                         resolution = res.range[[x]], 
                                                         verbose = FALSE)),
-                    name = "rn", value = "Clusters")
-    dplyr::full_join(umap, cluster.list[[x]])})
+                    name = "rn", value = "Clusters"))
+  cluster.list <- lapply(seq_along(res.range), function(x)
+    dplyr::full_join(umap, cluster.list[[x]]))
   
   cluster.counts <- vector(mode = "list", length = length(cluster.list))
   for(i in 1:length(cluster.counts)){
