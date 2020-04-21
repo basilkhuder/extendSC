@@ -31,7 +31,8 @@ chooseClusterRes <- function(seurat.obj,
     cluster.list[[i]] <- cluster.list[[i]][order(cluster.list[[i]]$Clusters), ]
   }
   
-  clusterPlots(cluster.list = cluster.list,
+  clusterPlots(seurat.obj = seurat.obj,
+               cluster.list = cluster.list,
                cluster.res = res.range,
                feature.plot = feature.plot,
                plot.cols = plot.cols)
