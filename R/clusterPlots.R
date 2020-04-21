@@ -1,6 +1,8 @@
 clusterPlots <- function(cluster.list,
                          cluster.res,
-                         point.size = 1,
+                         feature.plot,
+                         plot.cols,
+                         point.size = .1,
                          label.size = 10,
                          title = "",
                          legend.title.size = 0,
@@ -40,5 +42,16 @@ clusterPlots <- function(cluster.list,
         
         print(Seurat::LabelClusters(p1, id = "Clusters", size = label.size, repel = TRUE) + 
                    ggplot2::ggtitle(title))
+        
+        new.ident <- cluster.list[[i]]$Clusters
+        names(new.ident) <- cluster.list[[i]]$rn
+        Idents(seurat.obj) <- new.ident
+        produceMarkers(seurat.obj, cells.per.ident = 50, top.gene.plot = TRUE)
+        if(!is.null(feature.plot)){ 
+          FeaturePlot(seurat.obj, cols = c("grey", "red"),
+                      features = feature.plot,
+                      reduction = "umap", ncol = plot.cols)
+          }
+        
     } 
 } 
