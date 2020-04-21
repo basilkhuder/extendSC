@@ -1,4 +1,7 @@
-chooseClusterRes <- function(seurat.obj, cluster.res){
+chooseClusterRes <- function(seurat.obj, 
+                             cluster.res,
+                             feature.plot = NULL,
+                             plot.cols = NULL){
   
   `%>%` <- magrittr::`%>%`
   umap <- try(as.data.frame(Seurat::Embeddings(seurat.obj, 
@@ -27,6 +30,9 @@ chooseClusterRes <- function(seurat.obj, cluster.res){
                                          levels = cluster.counts[[i]][[1]])
     cluster.list[[i]] <- cluster.list[[i]][order(cluster.list[[i]]$Clusters), ]
   }
+  
   clusterPlots(cluster.list = cluster.list,
-               cluster.res = res.range)
+               cluster.res = res.range,
+               feature.plot = feature.plot,
+               plot.cols = plot.cols)
 } 
