@@ -19,15 +19,7 @@ chooseClusterRes <- function(seurat.obj,
                                                         verbose = FALSE)),
                     name = "rn", value = "Clusters"))
   cluster.list <- lapply(seq_along(res.range), function(x)
-    dplyr::full_join(umap, cluster.list[[x]]))
-  
-  cluster.counts <- vector(mode = "list", length = length(cluster.list))
-  
-  # for(i in 1:length(cluster.list)){
-  #   cluster.list[[i]]$Clusters <- factor(cluster.list[[i]]$Clusters, 
-  #                                        levels = unique(cluster.list[[i]]$Clusters))
-  #   cluster.list[[i]] <- cluster.list[[i]][order(cluster.list[[i]]$Clusters), ]
-  # }
+    dplyr::full_join(umap, cluster.list[[x]])) 
   
   clusterPlots(seurat.obj = seurat.obj,
                cluster.list = cluster.list,
