@@ -1,7 +1,7 @@
 chooseClusterRes <- function(seurat.obj, 
                              cluster.res,
                              ident.plot = TRUE,
-                             feature.plot = TRUE,
+                             feature.plot = NULL,
                              plot.cols = NULL){
   
   `%>%` <- magrittr::`%>%`
