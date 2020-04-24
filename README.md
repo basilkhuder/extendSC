@@ -2,7 +2,7 @@ extendSC
 ================
 *By: Basil Khuder*
 
-extendSC adds functionalities to scRNA-Seq workflows for the Seurat and SingleR packages. 
+extendSC adds functionalities to scRNA-Seq workflows for the Seurat package. 
 
 ### Installation:
 ```r
@@ -78,14 +78,3 @@ chooseClusterRes(seurat.obj,
                  feature.plot = c("Gene1","Gene2","Gene3"),
                  plot.cols = 1)                           
 ```
-
-### ***seuratToSingleR.R***:
-```seuratToSingleR()``` takes an annotated Seurat object to be used as a SingleR reference, any ```SingleCellExperiment``` object you're interested in annotating, and returns either a ```PlotScoreHeatmap()``` or a table with annotations. 
-
-``` r
-seuratToSingleR(reference = seurat.obj,
-                sce.obj = sce.obj,
-                heatmap = TRUE)
-```
-
-
