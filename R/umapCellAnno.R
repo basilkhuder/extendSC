@@ -1,3 +1,4 @@
+#' @export
 umapCellAnno <- function(seurat.obj,
                          point.size = 1,
                          label.size = 10,
@@ -25,7 +26,6 @@ umapCellAnno <- function(seurat.obj,
   umap <- as.data.frame(Embeddings(seurat.obj, reduction = "umap")) %>%
     dplyr::mutate(Clusters = Seurat::FetchData(seurat.obj, vars = vars)[[1]]) 
 
-    #magrittr::set_rownames(NULL)
   extract.clusters <- data.table::setDT(Seurat::FetchData(seurat.obj, vars = vars),keep.rownames = TRUE)
   cluster.counts <- extract.clusters %>%
     dplyr::group_by_at(2) %>%
