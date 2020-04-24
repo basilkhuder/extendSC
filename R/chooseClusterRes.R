@@ -1,3 +1,4 @@
+#' @export
 chooseClusterRes <- function(seurat.obj, 
                              cluster.res,
                              ident.plot = TRUE,
