@@ -1,6 +1,4 @@
-# Filters a Seurat object based upon mitochondrial and feature percentages. Instead of the traditional approach
-# of arbitrarily filtering on a fixed %, filtering is based upon quantile percentages. 
-# If seurat.obj is made up of multiple samples, each sample must have unique orig.ident
+#' @export
 
 featureFiltration <- function(seurat.obj,
                               mito.low = .02,
