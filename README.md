@@ -63,6 +63,17 @@ umapCellAnno(seurat.obj,
              counts.in.legend = TRUE,
              use.cols = "")       
 ```
+
+
+```r
+chooseClusterRes(seurat.obj, 
+    cluster.res,
+                             ident.plot = TRUE,
+                             feature.plot = NULL,
+                             plot.cols = NULL)
+                             
+```
+
 ### ***seuratToSingleR.R***:
 ```seuratToSingleR()``` takes an annotated Seurat object to be used as a SingleR reference, any ```SingleCellExperiment``` object you're interested in annotating, and returns either a ```PlotScoreHeatmap()``` or a table with annotations. 
 
