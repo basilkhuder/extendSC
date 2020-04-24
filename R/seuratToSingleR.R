@@ -1,4 +1,3 @@
-#' @export
 seuratToSingleR <- function(ref = seurat.obj,
                             object = sce.obj,
                             method = method,
