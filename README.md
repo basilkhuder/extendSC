@@ -4,6 +4,11 @@ extendSC
 
 extendSC adds functionalities to scRNA-Seq workflows for the Seurat and SingleR packages. 
 
+### Installation:
+```r
+devtools::install_github("basilkhuder/extendSC")
+```
+
 ### ***crToSeurat.R***:
 
 Takes a directory with the standard CellRanger counts output
