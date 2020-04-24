@@ -2,7 +2,7 @@ extendSC
 ================
 *By: Basil Khuder*
 
-extendSC adds functionalities to scRNA-Seq workflows for the Seurat package. 
+extendSC adds functionalities to scRNA-Seq workflows using the Seurat package. 
 
 ### Installation:
 ```r
