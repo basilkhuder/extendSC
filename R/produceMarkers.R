@@ -1,3 +1,4 @@
+#' @export
 produceMarkers <- function(seurat.obj,
                               cells.per.ident = Inf,
                               top.gene.plot = TRUE){ 
