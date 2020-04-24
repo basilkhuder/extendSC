@@ -1,5 +1,4 @@
-# Takes a directory with standard CellRanger counts output (raw/filtered/analysis) and returns a list of Seurat objects.
-# With the merge parameter, object list can be merged with sample ids provided.
+#' @export
 
 crToSeurat <- function(directory, 
                        min_cells = 3,
