@@ -1,3 +1,4 @@
+#' @export
 clusterPlots <- function(seurat.obj,
                          cluster.list,
                          cluster.res,
