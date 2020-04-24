@@ -6,7 +6,6 @@ Authors@R:
            family = "Khuder",
            role = c("aut", "cre"))
 Description: Extends functionalities of scRNA-Seq workflows using the Seurat and SingleR packages. 
-License: What license it uses
 Encoding: UTF-8
 LazyData: true
 Imports:
