@@ -8,13 +8,11 @@ Authors@R:
 Description: Extends functionalities of scRNA-Seq workflows using the Seurat and SingleR packages. 
 Encoding: UTF-8
 LazyData: true
-biocViews:
 Imports:
 	GenomeInfoDbData,
 	data.table,
 	tidyverse,
 	Seurat,
-	SingleR,
 	Matrix,
 	pheatmap
 RoxygenNote: 7.1.0
