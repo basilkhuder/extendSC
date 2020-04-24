@@ -48,14 +48,14 @@ clusterPlots <- function(seurat.obj,
         
         new.ident <- cluster.list[[i]]$Clusters
         names(new.ident) <- cluster.list[[i]]$rn
-        Idents(seurat.obj) <- new.ident
+        Seurat::Idents(seurat.obj) <- new.ident
         
         produceMarkers(seurat.obj,
                        cells.per.ident = 50, 
                        top.gene.plot = TRUE)
         
         if(!is.null(feature.plot)){ 
-          print(FeaturePlot(seurat.obj, cols = c("grey", "red"),
+          print(Seurat::FeaturePlot(seurat.obj, cols = c("grey", "red"),
                       features = feature.plot,
                       reduction = "umap", ncol = plot.cols))
         }
@@ -64,7 +64,7 @@ clusterPlots <- function(seurat.obj,
           ident.df <- data.frame(table(seurat.obj@active.ident, 
                                            seurat.obj@meta.data[, "orig.ident"]))
           
-          ggplot(data=ident.df, aes(x=Var2, y=Freq, fill = Var1)) +
+          ggplot2::ggplot(data=ident.df, aes(x=Var2, y=Freq, fill = Var1)) +
             geom_bar(stat="identity", color="black", position = 'fill') + 
             labs(x="Condition", y="Proportion") +
             theme(axis.text.x = element_text(angle = 90, hjust = 1))
