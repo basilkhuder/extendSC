@@ -1,5 +1,4 @@
-#Produce SingleR annotations on a custom reference made from a Seurat object 
-
+#' @export
 seuratToSingleR <- function(ref = seurat.obj,
                             object = sce.obj,
                             method = method,
