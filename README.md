@@ -64,13 +64,14 @@ umapCellAnno(seurat.obj,
              use.cols = "")       
 ```
 
-
+### ***chooseClusterRes.R***:
+```chooseClusterRes()``` allows you to explore various cluster resolution with the outputs being a UMAP, feature plots and identity plots. 
 ```r
 chooseClusterRes(seurat.obj, 
-    cluster.res,
-                             ident.plot = TRUE,
-                             feature.plot = NULL,
-                             plot.cols = NULL)
+                 cluster.res = list(.1,.5,.1),
+                 ident.plot = TRUE,
+                 feature.plot = c("Gene1","Gene2","Gene3"),
+                 plot.cols = 1)
                              
 ```
 
