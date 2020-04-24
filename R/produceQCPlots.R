@@ -1,3 +1,4 @@
+#' @export
 produceQCPlots <- function(ident,
                            mito.high,
                            mito.low,
