@@ -65,14 +65,13 @@ umapCellAnno(seurat.obj,
 ```
 
 ### ***chooseClusterRes.R***:
-```chooseClusterRes()``` allows you to explore various cluster resolution with the outputs being a UMAP, feature plots and identity plots. Unlike ```processSeurat.R```, ```chooseClusterRes``` does not alter the inputted seurat object and only returns plots.  Cluster resolutions must be in a list with the first element being "from", the second being "to" and the third being "by." 
+```chooseClusterRes()``` allows you to explore various cluster resolution with the outputs being a UMAP, feature plots and identity plots. Unlike ```processSeurat()```, ```chooseClusterRes()``` does not add the range of cluster resolutions to the seurat object.  Cluster resolutions must be in a list with the first element being "from", the second being "to" and the third being "by." 
 ```r
 chooseClusterRes(seurat.obj, 
                  cluster.res = list(.1,.5,.1),
                  ident.plot = TRUE,
                  feature.plot = c("Gene1","Gene2","Gene3"),
-                 plot.cols = 1)
-                             
+                 plot.cols = 1)                           
 ```
 
 ### ***seuratToSingleR.R***:
