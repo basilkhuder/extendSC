@@ -17,7 +17,7 @@ produceMarkers <- function(seurat.obj,
     file.name <- paste0(gsub("-","",Sys.Date()),"markers.txt")
   } 
   write.table(markers %>% group_by(cluster), 
-              file = file.name),
+              file = file.name,
               row.names=FALSE, sep="\t")
   if(top.gene.plot == TRUE){
     cluster.averages <- Seurat::AverageExpression(object = seurat.obj, return.seurat = TRUE)
