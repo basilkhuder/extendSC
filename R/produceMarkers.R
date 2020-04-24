@@ -9,7 +9,7 @@ produceMarkers <- function(seurat.obj,
                             min.pct = 0.25, 
                             logfc.threshold = 0.25, 
                             max.cells.per.ident = cells.per.ident)
-  markers %>% group_by(cluster) %>% top_n(n = 2, wt = avg_logFC)
+  print(markers %>% group_by(cluster) %>% top_n(n = 2, wt = avg_logFC))
   
   if(!is.null(file.name)){ 
     file.name <- file.name
