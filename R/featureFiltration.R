@@ -28,7 +28,7 @@ featureFiltration <- function(seurat.obj,
                           probs = feature.cut))
   filter.list <- vector(mode = "list", length = length(ident.list))
   
-  if (produce_plots == TRUE) {
+  if (isTRUE(produce_plots)) {
     produceQCPlots(ident, mito.low, mito.high, feat.cut)
   }
   
