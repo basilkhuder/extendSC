@@ -1,4 +1,3 @@
-#' @export
 featureFiltration <- function(seurat.obj,
                               mito.low = .05,
                               mito.high = .975,
@@ -13,26 +12,24 @@ featureFiltration <- function(seurat.obj,
                  "percent.mt",
                  "nFeature_RNA",
                  "nCount_RNA")
-    ),
-    keep.rownames = TRUE)
+    ), keep.rownames = TRUE)
     
     ident.list <- as.list(unique(ident$orig.ident))
-    mito.low <-
-        purrr::map(ident.list, ~ quantile(ident[ident$orig.ident == .x, ]$percent.mt,
-                                          probs = mito.low))
-    mito.high <-
-        purrr::map(ident.list, ~ quantile(ident[ident$orig.ident == .x, ]$percent.mt,
-                                          probs = mito.high))
-    feat.cut <-
-        purrr::map(ident.list,
-                   ~ quantile(ident[ident$orig.ident == .x, ]$nFeature_RNA,
+    mito.low <- lapply(ident.list, function(x) 
+        quantile(ident[ident$orig.ident == x, ]$percent.mt, probs = mito.low))
+    
+    mito.high <- lapply(ident.list, function(x)
+        quantile(ident[ident$orig.ident == x, ]$percent.mt, probs = mito.high))
+    
+    feat.cut <- lapply(ident.list, function(x)
+        quantile(ident[ident$orig.ident == x, ]$nFeature_RNA,
                               probs = feature.cut))
-    filter.list <- vector(mode = "list", length = length(ident.list))
     
     if (isTRUE(produce_plots)) {
         produceQCPlots(ident, mito.low, mito.high, feat.cut)
     }
     
+    filter.list <- vector(mode = "list", length = length(ident.list))
     for (i in 1:length(ident.list)) {
         ident.current <- ident[ident$orig.ident == ident.list[[i]]]
         ident.current <-
