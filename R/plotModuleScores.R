@@ -13,6 +13,6 @@ plotModuleScores <- function(seurat.obj,
                                   features = features,
                                   name = "Module_Scores")
   print(Seurat::RidgePlot(m.obj, features = features) + ggplot2::ggtitle(name))
-  print(Seurat::FeaturePlot(m.obj, features = name) + ggplot2::ggtitle(name)) 
+  print(Seurat::FeaturePlot(m.obj, features = features) + ggplot2::ggtitle(name)) 
  } 
                              
