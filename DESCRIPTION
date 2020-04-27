@@ -1,0 +1,20 @@
+Package: extendSC
+Title: Extends functionalities of scRNA-Seq workflows
+Version: 1.0.0
+Authors@R: 
+    person(given = "Basil",
+           family = "Khuder",
+           role = c("aut", "cre"),
+	   email = "bkhuderr@outlook.com")
+
+Description: Extends functionalities of scRNA-Seq workflows using the Seurat and SingleR packages. 
+Encoding: UTF-8
+LazyData: true
+Imports:
+	GenomeInfoDbData,
+	data.table,
+	tidyverse,
+	Seurat,
+	Matrix,
+	pheatmap
+RoxygenNote: 7.1.0
