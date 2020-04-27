@@ -6,14 +6,12 @@ featureFiltration <- function(seurat.obj,
     seurat.obj <- Seurat::PercentageFeatureSet(seurat.obj,
                                                pattern = "^MT-",
                                                col.name = "percent.mt")
-    ident <- data.table::setDT(Seurat::FetchData(
-        seurat.obj,
-        vars = c("orig.ident",
-                 "percent.mt",
-                 "nFeature_RNA",
-                 "nCount_RNA")
-    ), keep.rownames = TRUE)
-    
+    ident <- Seurat::FetchData(seurat.obj,
+                               vars = c("orig.ident",
+                                        "percent.mt",
+                                        "nFeature_RNA",
+                                        "nCount_RNA"))
+
     ident.list <- as.list(unique(ident$orig.ident))
     mito.low <- lapply(ident.list, function(x) 
         quantile(ident[ident$orig.ident == x, ]$percent.mt, probs = mito.low))
@@ -23,7 +21,7 @@ featureFiltration <- function(seurat.obj,
     
     feat.cut <- lapply(ident.list, function(x)
         quantile(ident[ident$orig.ident == x, ]$nFeature_RNA,
-                              probs = feature.cut))
+                 probs = feature.cut))
     
     if (isTRUE(produce_plots)) {
         produceQCPlots(ident, mito.low, mito.high, feat.cut)
@@ -31,14 +29,14 @@ featureFiltration <- function(seurat.obj,
     
     filter.list <- vector(mode = "list", length = length(ident.list))
     for (i in 1:length(ident.list)) {
-        ident.current <- ident[ident$orig.ident == ident.list[[i]]]
+        ident.current <- ident[ident$orig.ident == ident.list[[i]],]
         ident.current <-
-            ident.current[ident.current$percent.mt > mito.low[[i]]]
+            ident.current[ident.current$percent.mt > mito.low[[i]],]
         ident.current <-
-            ident.current[ident.current$percent.mt < mito.high[[i]]]
+            ident.current[ident.current$percent.mt < mito.high[[i]],]
         ident.current <-
-            ident.current[ident.current$nFeature_RNA < feat.cut[[i]]]
+            ident.current[ident.current$nFeature_RNA < feat.cut[[i]],]
         filter.list[[i]] <- ident.current
     }
-    return(Seurat::subset(seurat.obj, cells = do.call(rbind, filter.list)$rn))
+    return(subset(seurat.obj, cells = rownames(do.call(rbind, filter.list)))
 }
