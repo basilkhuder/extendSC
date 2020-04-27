@@ -31,12 +31,9 @@ featureFiltration <- function(seurat.obj,
     filter.list <- vector(mode = "list", length = length(ident.list))
     for (i in 1:length(ident.list)) {
         ident.current <- ident[ident$orig.ident == ident.list[[i]],]
-        ident.current <-
-            ident.current[ident.current$percent.mt > mito.low[[i]],]
-        ident.current <-
-            ident.current[ident.current$percent.mt < mito.high[[i]],]
-        ident.current <-
-            ident.current[ident.current$nFeature_RNA < feat.cut[[i]],]
+        ident.current <- ident.current[ident.current$percent.mt > mito.low[[i]],]
+        ident.current <- ident.current[ident.current$percent.mt < mito.high[[i]],]
+        ident.current <- ident.current[ident.current$nFeature_RNA < feat.cut[[i]],]
         filter.list[[i]] <- ident.current
     }
     return(subset(seurat.obj, cells = rownames(do.call(rbind, filter.list))))
