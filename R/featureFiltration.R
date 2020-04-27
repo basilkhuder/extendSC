@@ -12,6 +12,7 @@ featureFiltration <- function(seurat.obj,
                                         "nFeature_RNA",
                                         "nCount_RNA"))
 
+    
     ident.list <- as.list(unique(ident$orig.ident))
     mito.low <- lapply(ident.list, function(x) 
         quantile(ident[ident$orig.ident == x, ]$percent.mt, probs = mito.low))
@@ -38,5 +39,5 @@ featureFiltration <- function(seurat.obj,
             ident.current[ident.current$nFeature_RNA < feat.cut[[i]],]
         filter.list[[i]] <- ident.current
     }
-    return(subset(seurat.obj, cells = rownames(do.call(rbind, filter.list)))
+    return(subset(seurat.obj, cells = rownames(do.call(rbind, filter.list))))
 }
