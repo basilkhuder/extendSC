@@ -26,7 +26,7 @@ sample should have an individual folder, as provided in the following directory 
          
 ``` r
 crToSeurat(directory = "directory",
-           sample.names = c("sample.one,"sample.two"),
+           sample.names = c("sample.one","sample.two"),
            merge = TRUE,
            min_cells = 3,
            min_features = 200)
