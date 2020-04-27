@@ -1,4 +1,4 @@
-featureFiltration <- function(seurat.obj,
+featureFiltration2 <- function(seurat.obj,
                               mito.low = .05,
                               mito.high = .975,
                               feature.cut = .975,
