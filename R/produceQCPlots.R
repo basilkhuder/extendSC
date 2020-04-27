@@ -4,16 +4,6 @@ produceQCPlots <- function(ident,
                            mito.low,
                            feat.cut){ 
     
-    if(class(ident) == "Seurat") {
-        ident <- data.table::setDT(Seurat::FetchData(ident,
-                                                     vars = c(
-                                                         "orig.ident",
-                                                         "percent.mt",
-                                                         "nCount_RNA",
-                                                         "nFeature_RNA"
-                                                     )),
-                                   keep.rownames = TRUE)
-    }
     ident.names <- unique(ident$orig.ident)
     ident.list <- lapply(seq_along(ident.names), 
                          function(x) dplyr::filter(ident, orig.ident == ident.names[x]))
