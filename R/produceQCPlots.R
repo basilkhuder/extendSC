@@ -1,5 +1,5 @@
 #' @export
-produceQualityPlots <- function(ident,
+produceQCPlots <- function(ident,
                            mito.high,
                            mito.low,
                            feat.cut) {
