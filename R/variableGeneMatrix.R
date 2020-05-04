@@ -1,3 +1,4 @@
+#' @export
 variableGeneMatrix <- function(seurat.obj,
                                variable.genes = 200,
                                downsample = NULL,
