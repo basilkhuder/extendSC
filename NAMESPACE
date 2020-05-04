@@ -9,3 +9,5 @@ export(produceQCPlots)
 export(renameClusters)
 export(umapCellAnno)
 export(plotModuleScores)
+export(variableGeneMatrix)
+
