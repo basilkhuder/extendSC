@@ -8,8 +8,8 @@ variableGeneMatrix <- function(seurat.obj,
   if(!is.null(downsample)){ 
     seurat.obj = subset(seurat.obj, cells = sample(Seurat::Cells(seurat.obj), downsample))
   }
-  expr.matrix <- GetAssayData(seurat.obj)[features,]
-  gene.cor <- cor(t(expr.matrix))
+  expr.matrix <- Matrix::t(GetAssayData(seurat.obj)[features,])
+  gene.cor <- cor(as.matrix(expr.matrix))
   print(pheatmap::pheatmap(gene.cor))
   
   if(isTRUE(return.table)){ 
