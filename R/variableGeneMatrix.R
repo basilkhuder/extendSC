@@ -1,4 +1,4 @@
-gene.cor.matrix <- function(seurat.obj,
+variableGeneMatrix <- function(seurat.obj,
                             variable.genes = 200,
                             downsample = NULL) { 
 seurat.obj <- Seurat::FindVariableFeatures(seurat.obj, nfeatures = variable.genes)
