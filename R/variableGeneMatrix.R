@@ -1,6 +1,7 @@
 variableGeneMatrix <- function(seurat.obj,
                                variable.genes = 200,
-                               downsample = NULL) { 
+                               downsample = NULL,
+                               return.table = FALSE) { 
   seurat.obj <- Seurat::FindVariableFeatures(seurat.obj, nfeatures = variable.genes)
   features <- Seurat::VariableFeatures(seurat.obj)
   
@@ -10,6 +11,10 @@ variableGeneMatrix <- function(seurat.obj,
   expr.matrix <- GetAssayData(seurat.obj)[features,]
   gene.cor <- cor(t(gene.expr))
   print(pheatmap::pheatmap(gene.cor))
+  
+  if(isTRUE(return.table)){ 
+    return(gene.cor)
+    } 
 } 
 
 
