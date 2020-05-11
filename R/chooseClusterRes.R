@@ -5,7 +5,6 @@ chooseClusterRes <- function(seurat.obj,
                              feature.plot = NULL,
                              plot.cols = NULL){
   
-  `%>%` <- magrittr::`%>%`
   umap <- try(as.data.frame(Seurat::Embeddings(seurat.obj, 
                                                reduction = "umap")))
   if(class(umap) == "try-error"){ 
