@@ -1,6 +1,7 @@
 export(chooseClusterRes)
 export(clusterPlots)
 export(crToSeurat)
+export(crToMTX)
 export(featureFiltration)
 export(mergeSubCluster)
 export(processSeurat)
