@@ -1,4 +1,4 @@
-#' Takes a CellRanger filtered output and returns a matrix
+#' Takes a CellRanger filtered output and returns a gene matrix
 #' @param directory The path to the directory that contains the filtered_gene_matrices folder
 #' @return A filtered gene matrix
 #' @examples
