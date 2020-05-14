@@ -1,3 +1,12 @@
+#' Allows experimentation of different cluster resolutions on a Seurat object. 
+#' @param seurat.obj A seurat object. 
+#' @param cluster.res Cluster resolutions interested in 
+#' @param ident.plot Produce an identity plot
+#' @param feature.plot Produce a feature plot based on given genes
+#' @param plot.cols Choose the number of columns for the figures.
+#' @return UMAP and identity/feature plots
+#' @examples
+#' chooseClusterRes(seurat.obj, cluster.res = list(.1,.2,.5), feature.plot = c("gene1","gene2","gene3"))
 #' @export
 chooseClusterRes <- function(seurat.obj, 
                              cluster.res,
