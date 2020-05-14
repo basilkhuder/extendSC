@@ -1,7 +1,13 @@
+#' Takes a CellRanger filtered output and returns a matrix
+#' @param directory The path to the directory that contains the filtered_gene_matrices folder
+#' @return A filtered gene matrix
+#' @examples
+#' directory <- "/home/users/documents/CRoutput"
+#' matrix <- crToMTX(directory) 
 #' @export
 
-crToMTX <- function(folders) {
-  path <- paste(folders, list.files(path = folders,
+crToMTX <- function(directory) {
+  path <- paste(directory, list.files(path = directory,
                                     pattern = "filtered"), sep = "/")
   mtx <- paste(path, list.files(path = path,
                                 pattern = "matrix"), sep = "/")
