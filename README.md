@@ -10,6 +10,7 @@ devtools::install_github("basilkhuder/extendSC")
 ```
 
 ### ***crToSeurat.R***:
+**Only Cell Ranger 3.0 and greater is supported**
 
 Takes a directory with the standard CellRanger counts output
 (raw/filtered/analysis) and returns a list of Seurat objects or a merged Seurat object with ```merge = TRUE```. Each
