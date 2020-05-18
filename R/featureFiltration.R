@@ -1,3 +1,4 @@
+#' @export
 featureFiltration <- function(seurat.obj,
                               mito.low = .05,
                               mito.high = .975,
