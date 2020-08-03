@@ -3,8 +3,8 @@
 featureFiltration <- function(seurat.obj,
                               mito.low = .05,
                               mito.high = .975,
-                              feature.cut = .975,
-                              produce_plots = TRUE) {
+                              feature.cut = .975)
+                              #produce_plots = TRUE) {
   seurat.obj <- PercentageFeatureSet(seurat.obj,
                                      pattern = "^MT-",
                                      col.name = "percent.mt")
