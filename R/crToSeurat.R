@@ -1,3 +1,10 @@
+#' Takes a directory CellRanger counts output and returns a list of Seurat objects or a merged Seurat object
+#' @param seurat.obj A seurat object. 
+#' @param min_cells Include features detected in at least this many cells.
+#' @param min_features Include cells where at least this many features are detected 
+#' @return A Seurat object 
+#' @examples
+#' crToSeurat(directory = "Files", min_cells = 3, min_features = 3)
 #' @export
 
 crToSeurat <- function(directory, 
@@ -5,39 +12,29 @@ crToSeurat <- function(directory,
                        min_features = 200, 
                        sample_names = c("sample"), 
                        merge = FALSE){ 
-  `%>%` <- magrittr::`%>%`
-  folders <- list.dirs(directory, recursive = FALSE)
-  matrix.list <- vector(mode = "list", length = length(folders))
   
-  for (i in 1:length(folders)){ 
-    filtered.folder <- list.files(path = folders[[i]], pattern = "filtered")
-    full.dir <- paste(folders[[i]],filtered.folder,sep = "/")
-    matrix.list[[i]] <- Matrix::readMM(paste(full.dir,list.files(path = full.dir, pattern = "matrix"),sep = "/"))
-    features <- read.delim(paste(full.dir,list.files(path = full.dir, pattern = "features"),sep = "/"), 
-                           header = FALSE,
-                           stringsAsFactors = FALSE)
-    barcodes <- read.delim(paste(full.dir,list.files(path = full.dir, pattern = "barcode"),sep = "/"),
-                           header = FALSE,
-                           stringsAsFactors = FALSE)
-    matrix.list[[i]] <- matrix.list[[i]] %>%
-      magrittr::set_colnames(barcodes$V1) %>%
-      magrittr::set_rownames(features$V2) 
+  path <- str_c(directory, list.files(directory), "filtered_gene_bc_matrices",
+        sep = "/")
+  
+  matrix <- map(str_c(path,"matrix.mtx",sep = "/"), readMM)
+  features <- map(str_c(path,"features.tsv",sep = "/"), ~
+                  read_tsv(.x, col_names = FALSE)$X2)
+  
+  barcodes <- map(str_c(path,"barcodes.tsv",sep = "/"), ~
+                       read_tsv(.x, col_names = FALSE)$X1) 
+  
+  matrix <- imap(matrix, ~ set_colnames(.x, barcodes[[.y]]))
+  matrix <- imap(matrix, ~ set_rownames(.x, features[[.y]]))
+  matrix <- imap(matrix, ~ CreateSeuratObject(.x, min_cells = min_cells,
+                                              sample_names = sample_names[[.y]],
+                                              min_features = min_features))
+  
+  if (length(matrix) == 1){ 
+    matrix <- matrix[[1]]
   }
-  
-  matrix.list <- lapply(seq_along(matrix.list), function(x) 
-    Seurat::CreateSeuratObject(matrix.list[[x]], min.cells = min_cells,
-                               min.features = min_features,
-                               project = sample_names[x]))
-  
-  if (length(matrix.list) == 1){ 
-    matrix.list <- matrix.list[[1]]
-    }
-  
   
   if (isTRUE(merge)){
-    matrix.list <- merge(matrix.list[[1]], 
-                         matrix.list[-1],
-                         add.cell.ids = sample_names)
+    matrix <- merge(matrix[[1]], matrix[-1], add.cell.ids = sample_names)
   }
-  return(matrix.list)
+  return(matrix)
 }
