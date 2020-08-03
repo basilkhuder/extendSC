@@ -6,27 +6,19 @@
 #' @param fontsize The font size for the gene names on the heatmap. 
 #' @return A correlation heatmap and (optionally) a correlation matrix. 
 #' @examples
-#' variableGeneMatrix(seurat.obj = seurat.obj, variable.genes = 200, downsample = 1000, return.table = FALSE, fontsize = 10) 
+#' variableGeneMatrix(seurat.obj = seurat.obj, variable.genes = 200, return.table = FALSE, fontsize = 10) 
 #' @export
 
 variableGeneMatrix <- function(seurat.obj,
                                variable.genes = 200,
-                               #downsample = NULL,
                                return.table = FALSE,
                                fontsize = 10) { 
   
-  seurat.obj <- Seurat::FindVariableFeatures(seurat.obj, nfeatures = variable.genes)
-  features <- Seurat::VariableFeatures(seurat.obj)
-  
-  ### Downsampling is temp turned off. In next version, sampling will be stratified. 
-  #if(!is.null(downsample)){ 
-  #  seurat.obj = subset(seurat.obj, cells = sample(Seurat::Cells(seurat.obj), downsample))
-  #}
-  
+  seurat.obj <- FindVariableFeatures(seurat.obj, nfeatures = variable.genes)
+  features <- VariableFeatures(seurat.obj)
   expr.matrix <- Matrix::t(GetAssayData(seurat.obj)[features,])
   gene.cor <- cor(as.matrix(expr.matrix))
-  print(pheatmap::pheatmap(gene.cor, 
-                           fontsize = fontsize))
+  print(pheatmap(gene.cor, fontsize = fontsize))
   
   if(isTRUE(return.table)){ 
     return(gene.cor)
