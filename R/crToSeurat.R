@@ -1,5 +1,5 @@
 #' Takes a directory CellRanger counts output and returns a list of Seurat objects or a merged Seurat object
-#' @param seurat.obj A seurat object. 
+#' @param seurat.obj A Seurat object. 
 #' @param min_cells Include features detected in at least this many cells.
 #' @param min_features Include cells where at least this many features are detected 
 #' @return A Seurat object 
