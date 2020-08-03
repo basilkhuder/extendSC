@@ -75,7 +75,7 @@ umapCellAnno <- function(seurat.obj,
                                                       UMAP2 = median(UMAP_2))
   
   p1 <- ggplot(data = umap, mapping = aes(x = UMAP_1, y = UMAP_2)) +
-    geom_point(ggplot2::aes(color = Clusters), size = point.size) +
+    geom_point(aes(color = Clusters), size = point.size) +
     scale_color_manual(values = use.cols, labels = labels) + 
     theme_bw() + 
     theme(
