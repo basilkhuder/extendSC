@@ -26,7 +26,7 @@ crToSeurat <- function(directory,
   matrix <- imap(matrix, ~ set_colnames(.x, barcodes[[.y]]))
   matrix <- imap(matrix, ~ set_rownames(.x, features[[.y]]))
   matrix <- imap(matrix, ~ CreateSeuratObject(.x, min.cells = min.cells,
-                                              sample.names = sample.names[[.y]],
+                                              project = sample.names[[.y]],
                                               min.features = min.features))
   
   if (length(matrix) == 1){ 
