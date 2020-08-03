@@ -45,12 +45,12 @@ featureFiltration(object = seurat.obj,
 ```
 ### ***processSeurat.R***:
 
-Pipes together several downstream Seurat steps including variance-stabilizing transformation, PCA, clustering and nonlinear dimensionality reduction. Also allows for parallelization using the ```future``` package. To use with multiple cluster resolutions, use a list with the first element being "from", the second being "to" and the third being "by." 
+Pipes together several downstream Seurat steps including variance-stabilizing transformation, PCA, clustering and nonlinear dimensionality reduction. Also allows for parallelization using the ```future``` package.
 
 ``` r
 processSeurat(object = seurat.obj,
               dims = 1:50,
-              cluster.res = list(0.1,1,.1)
+              cluster.res = .2,
               seed.use = 24,
               n.cores = NULL)               
 ```
