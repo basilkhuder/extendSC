@@ -17,5 +17,6 @@ Imports:
 	Matrix,
 	pheatmap,
 	magrittr,
-	scales
+	scales,
+	glue
 RoxygenNote: 7.1.0
