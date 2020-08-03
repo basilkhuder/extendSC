@@ -57,10 +57,11 @@ processSeurat(object = seurat.obj,
 
 ### ***umapCellAnno.R***:
 
-Takes a processed Seurat object and returns a ggplot UMAP embedding with cell counts as labels or counts in the legend. 
+Takes a processed Seurat object and returns a ggplot UMAP embedding with cell counts as labels or counts in the legend. Specify the name of the slot that contains your Seurat clusters with ```annotation.name```. Default is *Seurat_Assignment"* followed by *seurat_clusters*
 
 ``` r
 umapCellAnno(seurat.obj,
+             annotation.name,
              point.size = 1,
              label.size = 8,
              title = "",
