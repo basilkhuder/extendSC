@@ -5,38 +5,25 @@ featureFiltration <- function(seurat.obj,
                               mito.high = .975,
                               feature.cut = .975,
                               produce_plots = TRUE) {
-    seurat.obj <- Seurat::PercentageFeatureSet(seurat.obj,
-                                               pattern = "^MT-",
-                                               col.name = "percent.mt")
-    ident <- Seurat::FetchData(seurat.obj,
-                               vars = c("orig.ident",
-                                        "percent.mt",
-                                        "nFeature_RNA",
-                                        "nCount_RNA"))
-
-    
-    ident.list <- as.list(unique(ident$orig.ident))
-    mito.low <- lapply(ident.list, function(x) 
-        quantile(ident[ident$orig.ident == x, ]$percent.mt, probs = mito.low))
-    
-    mito.high <- lapply(ident.list, function(x)
-        quantile(ident[ident$orig.ident == x, ]$percent.mt, probs = mito.high))
-    
-    feat.cut <- lapply(ident.list, function(x)
-        quantile(ident[ident$orig.ident == x, ]$nFeature_RNA,
-                 probs = feature.cut))
-    
-    if (isTRUE(produce_plots)) {
-        produceQCPlots(ident, mito.low, mito.high, feat.cut)
-    }
-    
-    filter.list <- vector(mode = "list", length = length(ident.list))
-    for (i in 1:length(ident.list)) {
-        ident.current <- ident[ident$orig.ident == ident.list[[i]],]
-        ident.current <- ident.current[ident.current$percent.mt > mito.low[[i]],]
-        ident.current <- ident.current[ident.current$percent.mt < mito.high[[i]],]
-        ident.current <- ident.current[ident.current$nFeature_RNA < feat.cut[[i]],]
-        filter.list[[i]] <- ident.current
-    }
-    return(subset(seurat.obj, cells = rownames(do.call(rbind, filter.list))))
+  seurat.obj <- PercentageFeatureSet(seurat.obj,
+                                     pattern = "^MT-",
+                                     col.name = "percent.mt")
+  
+  ident <- as_tibble(FetchData(seurat.obj,vars = c("orig.ident",
+                                         "percent.mt",
+                                         "nFeature_RNA",
+                                         "nCount_RNA")), rownames = "Cells")
+  
+  quantile.amounts <- ident %>% 
+    group_by(orig.ident) %>% 
+    summarize(mito.low = quantile(percent.mt, probs = mito.low),
+              mito.high = quantile(percent.mt, probs = mito.high),
+              feature.cut = quantile(nFeature_RNA, probs = feature.cut))
+  
+  ident.filtered <- ident %>% group_split(orig.ident) %>%
+    imap_dfr(~ filter(.x, percent.mt > quantile.amounts$mito.low[[.y]], 
+                      percent.mt < quantile.amounts$mito.high[[.y]],
+                      nFeature_RNA < quantile.amounts$feature.cut[[.y]]))
+  
+  return(subset(seurat.obj, cells = ident.filtered$Cells))
 }
