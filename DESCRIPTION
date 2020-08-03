@@ -16,5 +16,6 @@ Imports:
 	Seurat,
 	Matrix,
 	pheatmap,
-	magrittr
+	magrittr,
+	scales
 RoxygenNote: 7.1.0
