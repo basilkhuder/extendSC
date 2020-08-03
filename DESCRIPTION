@@ -19,5 +19,6 @@ Imports:
 	magrittr,
 	scales,
 	glue,
-	future
+	future,
+	ggrepel
 RoxygenNote: 7.1.0
