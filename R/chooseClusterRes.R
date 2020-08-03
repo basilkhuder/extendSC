@@ -27,8 +27,7 @@ chooseClusterRes <- function(seurat.obj,
                                                         resolution = res.range[[.x]], 
                                                         verbose = FALSE)))
   
-  cluster.list <- map(cluster.list, ~tibble(Cells = names(.x), 
-                                            Cluster = .x)) %>%
+  cluster.list <- map(cluster.list, ~tibble(Cells = names(.x), Cluster = .x)) %>%
     map( ~full_join(umap, .x))
   
   clusterPlots(seurat.obj = seurat.obj,
