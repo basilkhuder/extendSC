@@ -8,9 +8,9 @@
 #' @export
 
 crToSeurat <- function(directory, 
-                       min_cells = 3,
-                       min_features = 200, 
-                       sample_names = c("sample"), 
+                       min.cells = 3,
+                       min.features = 200, 
+                       sample.names = c("sample"), 
                        merge = FALSE){ 
   
   path <- str_c(directory, list.files(directory), "filtered_gene_bc_matrices",
@@ -25,9 +25,9 @@ crToSeurat <- function(directory,
   
   matrix <- imap(matrix, ~ set_colnames(.x, barcodes[[.y]]))
   matrix <- imap(matrix, ~ set_rownames(.x, features[[.y]]))
-  matrix <- imap(matrix, ~ CreateSeuratObject(.x, min_cells = min_cells,
-                                              sample_names = sample_names[[.y]],
-                                              min_features = min_features))
+  matrix <- imap(matrix, ~ CreateSeuratObject(.x, min.cells = min.cells,
+                                              sample.names = sample.names[[.y]],
+                                              min.features = min.features))
   
   if (length(matrix) == 1){ 
     matrix <- matrix[[1]]
@@ -37,7 +37,7 @@ crToSeurat <- function(directory,
   if (isTRUE(merge)){
     matrix <- merge(matrix[[1]], 
                          matrix[-1],
-                         add.cell.ids = sample_names)
+                         add.cell.ids = sample.names)
   }
   return(matrix)
 }
