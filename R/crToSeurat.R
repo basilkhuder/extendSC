@@ -18,10 +18,10 @@ crToSeurat <- function(directory,
   
   matrix <- map(str_c(path,"matrix.mtx",sep = "/"), readMM)
   features <- map(str_c(path,"features.tsv",sep = "/"), ~
-                  read_tsv(.x, col_names = FALSE)$X2)
+                  read_tsv(.x, col_names = FALSE, col_types = cols())$X2)
   
   barcodes <- map(str_c(path,"barcodes.tsv",sep = "/"), ~
-                       read_tsv(.x, col_names = FALSE)$X1) 
+                       read_tsv(.x, col_names = FALSE, col_types = cols())$X1) 
   
   matrix <- imap(matrix, ~ set_colnames(.x, barcodes[[.y]]))
   matrix <- imap(matrix, ~ set_rownames(.x, features[[.y]]))
@@ -33,8 +33,11 @@ crToSeurat <- function(directory,
     matrix <- matrix[[1]]
   }
   
+  
   if (isTRUE(merge)){
-    matrix <- merge(matrix[[1]], matrix[-1], add.cell.ids = sample_names)
+    matrix <- merge(matrix[[1]], 
+                         matrix[-1],
+                         add.cell.ids = sample_names)
   }
   return(matrix)
 }
