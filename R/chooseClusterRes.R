@@ -1,10 +1,8 @@
 #' Allows experimentation of different cluster resolutions on a Seurat object. 
 #' @param seurat.obj A seurat object. 
 #' @param cluster.res Cluster resolutions interested in 
-#' @param ident.plot Produce an identity plot
 #' @param feature.plot Produce a feature plot based on given genes
-#' @param plot.cols Choose the number of columns for the figures.
-#' @return UMAP and identity/feature plots
+#' @return UMAP and a Feature Plot
 #' @examples
 #' chooseClusterRes(seurat.obj, cluster.res = list(.1,.2,.5), feature.plot = c("gene1","gene2","gene3"))
 #' @export
@@ -27,13 +25,19 @@ chooseClusterRes <- function(seurat.obj,
                                                         resolution = res.range[[.x]], 
                                                         verbose = FALSE)))
   
-  cluster.list <- map(cluster.list, ~tibble(Cells = names(.x), Cluster = .x)) %>%
+  cluster.list <- map(cluster.list, ~tibble(Cells = names(.x), 
+                                            Clusters = .x)) %>%
     map( ~full_join(umap, .x))
   
-  clusterPlots(seurat.obj = seurat.obj,
-               cluster.list = cluster.list,
-               cluster.res = res.range,
-               feature.plot = feature.plot,
-               plot.cols = plot.cols,
-               ident.plot = ident.plot)
-} 
+  walk2(cluster.list, res.range, ~ clusterPlots(seurat.obj = seurat.obj,
+                                               cluster.list = .x,
+                                               res.range = .y))
+  
+  if(!is.null(feature.plot)){ 
+    print(FeaturePlot(seurat.obj, cols = c("grey", "red"),
+                              features = feature.plot,
+                              reduction = "umap", ncol = plot.cols))
+    
+  }
+  }
+  
