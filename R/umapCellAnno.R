@@ -71,7 +71,7 @@ umapCellAnno <- function(seurat.obj,
     labels <- paste0(labels,"\n")
   } 
   
-  l.cord <- umap %>% group_by(Clusters) %>% summarize(UMAP1 = median(UMAP_1), 
+  l.coord <- umap %>% group_by(Clusters) %>% summarize(UMAP1 = median(UMAP_1), 
                                                       UMAP2 = median(UMAP_2))
   
   p1 <- ggplot(data = umap, mapping = aes(x = UMAP_1, y = UMAP_2)) +
@@ -91,7 +91,7 @@ umapCellAnno <- function(seurat.obj,
                    axis.text.y.left = element_text(size = axis.text.y.left.size),
                    axis.text.x.bottom = element_text(size = axis.text.x.bottom.size)) +
     guides(colour = guide_legend(override.aes = list(size=cell.legend.size))) +
-    geom_text_repel(data = l.cord, mapping = aes(x = UMAP1,y=UMAP2,label = Clusters), size = label.size,
+    geom_text_repel(data = l.coord, mapping = aes(x = UMAP1,y=UMAP2,label = Clusters), size = label.size,
                     direction = "y")  
   return(p1)
 } 
