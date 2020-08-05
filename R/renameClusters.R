@@ -1,8 +1,27 @@
+#' Easily rename/annotate Seurat clusters
+#' @param seurat.obj A Seurat object. 
+#' @param cluster.names Names for the renamed/annotated clusters
+#' @param annotation.name Name to store new clusters in Seurat object
+#' @return A Seurat object 
+#' @examples
+#' crToSeurat(directory = "Files", min_cells = 3, min_features = 3)
 #' @export
-renameClusters <- function(seurat.obj, cluster_names){ 
-  names(cluster_names) <- levels(x = seurat.obj)
-  seurat.obj <- Seurat::RenameIdents(seurat.obj, cluster_names)
-  seurat.obj@meta.data$Seurat_Assignment <- Idents(seurat.obj)
+#' @export
+renameClusters <- function(seurat.obj, 
+                           cluster.names,
+                           annotation.name) { 
+  
+  if(!is.null(annotation.name)){ 
+    annotation.name <- "Seurat_Assignment"
+    }
+  
+  names(cluster.names) <- levels(x = seurat.obj)
+  seurat.obj <- RenameIdents(seurat.obj, cluster.names)
+  bal.all.control@meta.data[[annotation.name]] <- Idents(seurat.obj)
   return(seurat.obj)
+  
 }
+
+
+
 
