@@ -17,7 +17,7 @@ renameClusters <- function(seurat.obj,
   
   names(cluster.names) <- levels(x = seurat.obj)
   seurat.obj <- RenameIdents(seurat.obj, cluster.names)
-  bal.all.control@meta.data[[annotation.name]] <- Idents(seurat.obj)
+  seurat.obj@meta.data[[annotation.name]] <- Idents(seurat.obj)
   return(seurat.obj)
   
 }
