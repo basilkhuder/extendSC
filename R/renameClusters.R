@@ -9,9 +9,9 @@
 #' @export
 renameClusters <- function(seurat.obj, 
                            cluster.names,
-                           annotation.name) { 
+                           annotation.name = NULL) { 
   
-  if(!is.null(annotation.name)){ 
+  if(is.null(annotation.name)){ 
     annotation.name <- "Seurat_Assignment"
     }
   
