@@ -20,5 +20,6 @@ Imports:
 	scales,
 	glue,
 	future,
-	ggrepel
+	ggrepel,
+	factoextra
 RoxygenNote: 7.1.0
