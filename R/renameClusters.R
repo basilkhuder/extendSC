@@ -4,7 +4,7 @@
 #' @param annotation.name Name to store new clusters in Seurat object
 #' @return A Seurat object 
 #' @examples
-#' crToSeurat(directory = "Files", min_cells = 3, min_features = 3)
+#' renameClusters(seurat.obj, cluster.names = c("Cluster1","Cluster2","Cluster3"), annotation.name = "Seurat_Annotations")
 #' @export
 #' @export
 renameClusters <- function(seurat.obj, 
