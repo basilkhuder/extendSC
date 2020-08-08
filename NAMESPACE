@@ -11,4 +11,5 @@ export(renameClusters)
 export(umapCellAnno)
 export(plotModuleScores)
 export(variableGeneMatrix)
+export(hierachialSeurat)
 
