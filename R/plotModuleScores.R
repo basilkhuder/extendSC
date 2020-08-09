@@ -9,10 +9,10 @@ plotModuleScores <- function(seurat.obj,
   } else { 
     name <- "Module_scores"
   }
-  m.obj <- Seurat::AddModuleScore(object = seurat.obj,
+  m.obj <- AddModuleScore(object = seurat.obj,
                                   features = features,
                                   name = "Module_Scores")
-  print(Seurat::RidgePlot(m.obj, features = features))
-  print(Seurat::FeaturePlot(m.obj, features = features)) 
+  print(RidgePlot(m.obj, features = features))
+  print(FeaturePlot(m.obj, features = features)) 
  } 
                              
