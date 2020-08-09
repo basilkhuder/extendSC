@@ -21,10 +21,10 @@ crToMTX <- function(directory) {
          'genes.tsv'")
   }
   features <- paste(path, features, sep = "/")
-  features <- read.delim(features, header = FALSE, stringsAsFactors = FALSE)$V2
+  features <- read_tsv(features, col_names = TRUE)$X2
   barcodes <- paste(path, list.files(path = path,
                                      pattern = "barcodes"), sep = "/")
-  barcodes <- read.delim(barcodes, header = FALSE, stringsAsFactors = FALSE)$V1
+  barcodes <- read_tsv(barcodes, col_names = TRUE)$X1
   rownames(mtx) <- features
   colnames(mtx) <- barcodes
   return(mtx)
