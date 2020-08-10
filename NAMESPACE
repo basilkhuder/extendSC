@@ -10,5 +10,5 @@ export(produceQCPlots)
 export(renameClusters)
 export(umapCellAnno)
 export(variableGeneMatrix)
-export(hierachialSeurat)
+export(hierarchicalSeurat)
 
