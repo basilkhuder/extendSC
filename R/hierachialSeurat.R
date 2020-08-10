@@ -26,14 +26,21 @@ hierachialSeurat <- function(seurat.obj,
       stop("Seurat object does not have any variable features.")
     }
     
-    counts <- Matrix::t(GetAssayData(seurat.obj))[seq(variable.genes),]
-    counts <- as_tibble(counts, rownames = "Cells") %>% right_join(y = cell.extract, by = "Cells")
-
-    } else { 
-      
-    counts <- Matrix::t(GetAssayData(seurat.obj))
-    counts <- as_tibble(counts, rownames = "Cells") %>% right_join(y = cell.extract, by = "Cells")
-    }
+    counts <- as_tibble(GetAssayData(seurat.obj)[seq(variable.genes),cell.extract$Cells], 
+                        rownames = "Genes") %>% 
+      pivot_longer(cols = -(Genes), names_to = "Cells") %>%
+      pivot_wider(names_from = Genes, values_from = value) %>% 
+      right_join(y = cell.extract, by = "Cells")
+    
+  } else { 
+    
+    counts <- as_tibble(GetAssayData(seurat.obj)[,cell.extract$Cells], 
+                        rownames = "Genes") %>% 
+      pivot_longer(cols = -(Genes), names_to = "Cells") %>%
+      pivot_wider(names_from = Genes, values_from = value) %>% 
+      right_join(y = cell.extract, by = "Cells")
+    
+  }
   
   dist <- dist(counts %>% select(-c(Cells, !!as.name(annotation.name))))
   tree <- hcut(dist, hang = .1)
