@@ -5,7 +5,7 @@
 #' @param down.sample Amount of cells to sample 
 #' @param seed Value for the seed to set
 #' @param variable.genes (Optional) Subet counts data to this many variable genes for distance matrix calculation
-#' hierachialSeurat(seurat.obj, clusters = "Cluster1", annotation.name = "Seurat_Assignment", down.sample = 50) 
+#' hierarchicalSeurat(seurat.obj, clusters = "Cluster1", annotation.name = "Seurat_Assignment", down.sample = 50) 
 #' @export
 
 hierarchicalSeurat <- function(seurat.obj,
