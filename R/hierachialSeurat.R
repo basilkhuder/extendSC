@@ -11,8 +11,10 @@ hierachialSeurat <- function(seurat.obj,
                              clusters,
                              annotation.name,
                              down.sample,
-                             variable.genes = NULL) { 
+                             variable.genes = NULL,
+                             seed = 1) { 
   
+  set.seed(seed)
   cell.extract <- as_tibble(FetchData(seurat.obj, vars = annotation.name),
                             rownames = "Cells") %>%
     filter(!!as.name(annotation.name) == clusters) %>%
