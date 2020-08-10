@@ -1,4 +1,4 @@
-#' Produce hierachial clustering for a sub-cluster of a downsampled Seurat object. 
+#' Produce hierarchical clustering for a sub-cluster of a downsampled Seurat object. 
 #' @param seurat.obj A seurat object. 
 #' @param clusters Cluster to cluster
 #' @param annotation.name Variable name given to Seurat cluster assignments 
@@ -8,7 +8,7 @@
 #' hierachialSeurat(seurat.obj, clusters = "Cluster1", annotation.name = "Seurat_Assignment", down.sample = 50) 
 #' @export
 
-hierachialSeurat <- function(seurat.obj,
+hierarchicalSeurat <- function(seurat.obj,
                              clusters,
                              annotation.name,
                              down.sample,
