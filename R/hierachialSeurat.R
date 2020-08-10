@@ -8,10 +8,10 @@
 #' @export
 
 hierachialSeurat <- function(seurat.obj,
-                          clusters,
-                          annotation.name,
-                          down.sample,
-                          variable.genes = NULL) { 
+                             clusters,
+                             annotation.name,
+                             down.sample,
+                             variable.genes = NULL) { 
   
   cell.extract <- as_tibble(FetchData(seurat.obj, vars = annotation.name),
                             rownames = "Cells") %>%
@@ -26,13 +26,10 @@ hierachialSeurat <- function(seurat.obj,
     
     counts <- as_tibble(t(GetAssayData(seurat.obj)[seq(variable.genes),]),
                         rownames = "Cells") %>% right_join(y = cell.extract, by = "Cells")
-                       
-  } 
-  
-  else { 
+    } else { 
     counts <- as_tibble(t(GetAssayData(seurat.obj)),
                         rownames = "Cells") %>% left_join(y = cell.extract, by = "Cells")
-  }
+    }
   
   dist <- dist(counts %>% select(-c(Cells, !!as.name(annotation.name))))
   tree <- hcut(dist, hang = .1)
