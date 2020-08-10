@@ -1,5 +1,4 @@
-#' Produce hierachial clustering for a sub-cluster of a Seurat object. Due to the sheer computational demands of hierachial clustering with single cell data, 
-#' Seurat object must be downsampled. 
+#' Produce hierachial clustering for a sub-cluster of a downsampled Seurat object. 
 #' @param seurat.obj A seurat object. 
 #' @param clusters Cluster to cluster
 #' @param annotation.name Variable name given to Seurat cluster assignments 
