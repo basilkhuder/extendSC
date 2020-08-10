@@ -24,7 +24,7 @@ hierachialSeurat <- function(seurat.obj,
       stop("Seurat object does not have any variable features.")
     }
     
-    counts <- as_tibble(t(GetAssayData(seurat.obj)[seq(variable.genes),]),
+    counts <- as_tibble(Matrix::t(GetAssayData(seurat.obj)[seq(variable.genes),]),
                         rownames = "Cells") %>% right_join(y = cell.extract, by = "Cells")
     } else { 
     counts <- as_tibble(t(GetAssayData(seurat.obj)),
