@@ -6,7 +6,7 @@
 #' @param seed Value for the seed to set
 #' @param variable.genes (Optional) Subet counts data to this many variable genes for distance matrix calculation
 #' @param return.clusters (Optional) Put the height you want to cut the dendrogram at and return an object that contains cells and hierarchical clusters
-#' dendoSeurat(seurat.obj, cluster = "Cluster1", annotation.name = "Seurat_Assignment", down.sample = 50, seed = 1, return.clusters = 4) 
+#' dendoSeurat(seurat.obj, cluster = "5", annotation.name = "seurat_clusters", down.sample = 50, seed = 1, return.clusters = 4) 
 #' @export
 
 dendoSeurat <- function(seurat.obj,
