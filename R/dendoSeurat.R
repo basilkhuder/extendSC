@@ -1,16 +1,16 @@
 #' Produce hierarchical clustering for a sub-cluster of a downsampled Seurat object and return a dendrogram. 
 #' @param seurat.obj A seurat object. 
-#' @param clusters Cluster to cluster
+#' @param cluster Cluster interested in
 #' @param annotation.name Variable name given to Seurat cluster assignments 
 #' @param down.sample Amount of cells to sample 
 #' @param seed Value for the seed to set
 #' @param variable.genes (Optional) Subet counts data to this many variable genes for distance matrix calculation
-#' @param return.clusters (Optional) Put the height you want to cut the dendrogram at and return an object that contains cells and associated clusters
-#' dendoSeurat(seurat.obj, clusters = "Cluster1", annotation.name = "Seurat_Assignment", down.sample = 50, seed = 1, return.clusters = 4) 
+#' @param return.clusters (Optional) Put the height you want to cut the dendrogram at and return an object that contains cells and hierarchical clusters
+#' dendoSeurat(seurat.obj, cluster = "Cluster1", annotation.name = "Seurat_Assignment", down.sample = 50, seed = 1, return.clusters = 4) 
 #' @export
 
 dendoSeurat <- function(seurat.obj,
-                        clusters,
+                        cluster,
                         annotation.name,
                         down.sample,
                         variable.genes = NULL,
@@ -20,7 +20,7 @@ dendoSeurat <- function(seurat.obj,
   set.seed(seed)
   cell.extract <- as_tibble(FetchData(seurat.obj, vars = annotation.name),
                             rownames = "Cells") %>%
-    filter(!!as.name(annotation.name) == clusters) %>%
+    filter(!!as.name(annotation.name) == cluster) %>%
     slice_sample(n = down.sample, replace = FALSE)
   
   if(!is.null(variable.genes)) { 
