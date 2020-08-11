@@ -24,25 +24,20 @@ dendoSeurat <- function(seurat.obj,
     slice_sample(n = down.sample, replace = FALSE)
   
   if(!is.null(variable.genes)) { 
-    
     if(class(try(VariableFeatures(seurat.obj), silent = TRUE)) == "try-error"){
       stop("Seurat object does not have any variable features.")
     }
-    
     counts <- as_tibble(GetAssayData(seurat.obj)[seq(variable.genes),cell.extract$Cells], 
                         rownames = "Genes") %>% 
       pivot_longer(cols = -(Genes), names_to = "Cells") %>%
       pivot_wider(names_from = Genes, values_from = value) %>% 
       right_join(y = cell.extract, by = "Cells")
-    
   } else { 
-    
     counts <- as_tibble(GetAssayData(seurat.obj)[,cell.extract$Cells], 
                         rownames = "Genes") %>% 
       pivot_longer(cols = -(Genes), names_to = "Cells") %>%
       pivot_wider(names_from = Genes, values_from = value) %>% 
       right_join(y = cell.extract, by = "Cells")
-    
   }
   
   dist <- dist(counts %>% select(-c(Cells, !!as.name(annotation.name))))
