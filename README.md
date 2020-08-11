@@ -81,3 +81,15 @@ chooseClusterRes(seurat.obj,
                  feature.plot = c("Gene1","Gene2","Gene3"),
                  plot.cols = 1)                           
 ```
+
+### ***dendoSeurat.R***:
+```dendoSeurat()``` allows you to hierarchically cluster a subset of a Seurat object and return a dendrogram. Due to the sheer computational demands of hierarchical clustering, down-sampling of your Seurat object is required. If you'd like both a dendrogram and the clustering labels returned, set ```return.clusters``` to the height of the tree you want cut to produce the cluster groups. 
+```r
+chooseClusterRes(seurat.obj, 
+                 clusters = "T Cells",
+                 annotation.name = "Seurat_Assignment",
+                 down.sample = 50,
+                 variable.genes = NULL,
+                 seed = 1,
+                 return.clusters = 4)                           
+```
