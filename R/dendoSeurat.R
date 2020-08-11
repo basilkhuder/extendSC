@@ -5,15 +5,17 @@
 #' @param down.sample Amount of cells to sample 
 #' @param seed Value for the seed to set
 #' @param variable.genes (Optional) Subet counts data to this many variable genes for distance matrix calculation
-#' dendoSeurat(seurat.obj, clusters = "Cluster1", annotation.name = "Seurat_Assignment", down.sample = 50, seed = 1) 
+#' @param return.clusters (Optional) Put the height you want to cut the dendrogram at and return an object that contains cells and associated clusters
+#' dendoSeurat(seurat.obj, clusters = "Cluster1", annotation.name = "Seurat_Assignment", down.sample = 50, seed = 1, return.clusters = 4) 
 #' @export
 
 dendoSeurat <- function(seurat.obj,
-                             clusters,
-                             annotation.name,
-                             down.sample,
-                             variable.genes = NULL,
-                             seed = 1) { 
+                        clusters,
+                        annotation.name,
+                        down.sample,
+                        variable.genes = NULL,
+                        seed = 1,
+                        return.clusters = NULL) { 
   
   set.seed(seed)
   cell.extract <- as_tibble(FetchData(seurat.obj, vars = annotation.name),
@@ -46,6 +48,14 @@ dendoSeurat <- function(seurat.obj,
   dist <- dist(counts %>% select(-c(Cells, !!as.name(annotation.name))))
   tree <- hcut(dist, hang = .1)
   tree$labels<- extract2(counts, annotation.name)
-  return(fviz_dend(tree))
   
+  if(!is.null(return.clusters)){ 
+    print(fviz_dend(tree))
+    tree$labels<- extract2(counts, "Cells")
+    tree.cut <- cutree(tree, h = return.clusters)
+    tree.cut <- tibble(Cells = names(tree.cut), Clusters = tree.cut)
+    return(counts %>% right_join(y = tree.cut, by = "Cells"))
+  } else { 
+    return(fviz_dend(tree))
+    }
 } 
