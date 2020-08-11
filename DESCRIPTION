@@ -11,7 +11,6 @@ Description: Extends functionalities of scRNA-Seq workflows using Seurat.
 Encoding: UTF-8
 LazyData: true
 Imports:
-	data.table,
 	tidyverse,
 	Seurat,
 	Matrix,
