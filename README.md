@@ -35,7 +35,7 @@ crToSeurat(directory = "directory",
 
 ### ***featureFiltration.R***:
 
-Filters cells from a Seurat object based upon the amount of features and percentage of mitochondrial genes. If sample is made up of individuals, each individual is filtered separately based upon specific probability quantiles. Default quantile parameters are: 
+Filters cells from a Seurat object based upon the amount of features and percentage of mitochondrial genes. If an object is made up of multiple samples, each sample is filtered separately based upon specific probability quantiles. Default quantile parameters are: 
 
 ``` r
 featureFiltration(object = seurat.obj, 
