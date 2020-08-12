@@ -37,7 +37,6 @@ chooseClusterRes <- function(seurat.obj,
     print(FeaturePlot(seurat.obj, cols = c("grey", "red"),
                               features = feature.plot,
                               reduction = "umap", ncol = plot.cols))
-    
   }
-  }
+ }
   
