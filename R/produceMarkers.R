@@ -25,4 +25,5 @@ produceMarkers <- function(seurat.obj,
     cluster.averages <- AverageExpression(object = seurat.obj, return.seurat = TRUE)
     print(pheatmap(GetAssayData(cluster.averages)[unique(top3$gene),]))
   }
+  return(markers)
 }
