@@ -2,7 +2,7 @@
 produceMarkers <- function(seurat.obj,
                            cells.per.ident = Inf,
                            top.gene.plot = TRUE,
-                           file.name = NULL ){ 
+                           output.name = NULL ){ 
   
   markers <- FindAllMarkers(object = seurat.obj, 
                             only.pos = TRUE, 
@@ -10,19 +10,19 @@ produceMarkers <- function(seurat.obj,
                             logfc.threshold = 0.25, 
                             max.cells.per.ident = cells.per.ident)
   
-  print(markers %>% group_by(cluster) %>% top_n(n = 2, wt = avg_logFC))
+  top3 <- markers %>% 
+    group_by(cluster) %>% 
+    slice_max(n = 3, order_by = avg_logFC) %>%
+    select(gene, everything())
+  print(top3)
   
-  if(!is.null(file.name)){ 
-    file.name <- file.name
-  } else { 
-    file.name <- paste0(gsub("-","",Sys.Date()),"markers.txt")
-  } 
-  write.table(markers %>% group_by(cluster), 
-              file = file.name,
-              row.names=FALSE, sep="\t")
+  file.name <- if_else(is.null(output.name),
+                       str_c(str_replace_all(Sys.Date(),"-","_"),"_markers.txt"),
+                       output.name)
+  write_tsv(markers, path = file.name)
+  
   if(top.gene.plot == TRUE){
     cluster.averages <- AverageExpression(object = seurat.obj, return.seurat = TRUE)
-    top3 <- markers %>% group_by(cluster) %>% top_n(n = 3, wt = avg_logFC)
     print(pheatmap(GetAssayData(cluster.averages)[unique(top3$gene),]))
-    }
   }
+}
