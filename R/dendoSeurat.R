@@ -27,7 +27,7 @@ dendoSeurat <- function(seurat.obj,
     if(class(try(VariableFeatures(seurat.obj), silent = TRUE)) == "try-error"){
       stop("Seurat object does not have any variable features.")
     }
-    counts <- as_tibble(GetAssayData(seurat.obj)[seq(variable.genes),cell.extract$Cells], 
+    counts <- as_tibble(GetAssayData(seurat.obj)[VariableFeatures(seurat.obj)[seq(variable.genes)],cell.extract$Cells], 
                         rownames = "Genes") %>% 
       pivot_longer(cols = -(Genes), names_to = "Cells") %>%
       pivot_wider(names_from = Genes, values_from = value) %>% 
