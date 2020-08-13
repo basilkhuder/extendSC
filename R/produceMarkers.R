@@ -2,13 +2,15 @@
 produceMarkers <- function(seurat.obj,
                            cells.per.ident = Inf,
                            top.gene.plot = TRUE,
-                           output.name = NULL ){ 
+                           output.name = NULL,
+                           test.use = "wilcox"){ 
   
   markers <- FindAllMarkers(object = seurat.obj, 
                             only.pos = TRUE, 
                             min.pct = 0.25, 
                             logfc.threshold = 0.25, 
-                            max.cells.per.ident = cells.per.ident)
+                            max.cells.per.ident = cells.per.ident,
+                            test.use = test.use)
   
   top3 <- markers %>% 
     group_by(cluster) %>% 
