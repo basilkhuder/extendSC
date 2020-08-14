@@ -40,14 +40,13 @@ dendoSeurat <- function(seurat.obj,
       right_join(y = cell.extract, by = "Cells")
   }
   
-  dist <- dist(counts %>% select(-c(Cells, !!as.name(annotation.name))))
-  tree <- hcut(dist, hang = .1)
-  tree$labels<- extract2(counts, annotation.name)
+  dist <- hclust(dist(counts %>% select(-c(Cells, !!as.name(annotation.name)))))
+  dist$labels<- extract2(counts, annotation.name)
   
   if(!is.null(return.clusters)){ 
     print(fviz_dend(tree))
-    tree$labels<- extract2(counts, "Cells")
-    tree.cut <- cutree(tree, h = return.clusters)
+    dist$labels<- extract2(counts, "Cells")
+    tree.cut <- cutree(dist, h = return.clusters)
     tree.cut <- tibble(Cells = names(tree.cut), Clusters = tree.cut)
     return(counts %>% right_join(y = tree.cut, by = "Cells"))
   } else { 
