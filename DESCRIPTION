@@ -6,11 +6,9 @@ Authors@R:
            family = "Khuder",
            role = c("aut", "cre"),
 	   email = "bkhuderr@outlook.com")
-
 Description: Extends functionalities of scRNA-Seq workflows using Seurat. 
 Encoding: UTF-8
 LazyData: true
-biocViews:
 Depends:
 	tidyverse,
 	Seurat,
@@ -22,6 +20,4 @@ Depends:
 	future,
 	ggrepel,
 	factoextra,
-	singleR,
-	limma
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
