@@ -22,26 +22,26 @@ clusterPlots <- function(seurat.obj,
                     c = 100,
                     l = 65)[seq_along(unique(cluster.list$Clusters))]
   
-    p1 <- ggplot2::ggplot(data = cluster.list, 
+    p1 <- ggplot(data = cluster.list, 
                           mapping = aes(x = UMAP_1, y = UMAP_2)) +
-      ggplot2::geom_point(aes(color = Clusters), size = point.size) +
+      geom_point(aes(color = Clusters), size = point.size) +
       scale_color_manual(values = use.cols) + 
-      ggplot2::theme_bw() + 
-      ggplot2::theme(
+      theme_bw() + 
+      theme(
         plot.background = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         panel.border = element_blank()) +
-      ggplot2::theme(axis.line = element_line(color = 'black'),
+      theme(axis.line = element_line(color = 'black'),
                      legend.title = element_text(size = legend.title.size),
                      legend.text = element_text(size = legend.text.size),
                      axis.title.x = element_text(size = axis.title.x.size),
                      axis.title.y = element_text(size = axis.title.y.size),
                      axis.text.y.left = element_text(size = axis.text.y.left.size),
                      axis.text.x.bottom = element_text(size = axis.text.x.bottom.size)) +
-      ggplot2::guides(colour = guide_legend(override.aes = list(size=cell.legend.size))) 
+      guides(colour = guide_legend(override.aes = list(size=cell.legend.size))) 
     
-    geom_text_repel(data = l.coord, mapping = aes(x = UMAP1, y= UMAP2,label = Clusters), size = label.size,
+    geom_text_repel(data = l.coord, mapping = aes(x = UMAP1, y = UMAP2,label = Clusters), size = label.size,
                     direction = "y")  
       ggtitle(glue(res.range, " Cluster Resolution"))
       print(p1)
