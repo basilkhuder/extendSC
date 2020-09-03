@@ -82,6 +82,24 @@ chooseClusterRes(seurat.obj,
                  plot.cols = 1)                           
 ```
 
+### ***extractMeta.R***:
+```extractMeta()``` allows you to easily extract Seurat meta-data into a tibble. Types of meta-data that it can extract include embeddings, clusters and module scores. Extract meta information can be merged together with ```merge = TRUE```
+```r
+extractMeta(seurat.obj, 
+    types = c("Clusters","Module Scores","Embeddings"), 
+    vars = c("Seurat_Assignment, "Module_Scores1", "umap"),
+    merge = TRUE)
+```
+
+### ***extractCounts.R***:
+```extractCounts()``` allows you to extract counts from a Seurat object for all or a subset of genes. Counts can also be returned in a pivotted-tible format with tibble = TRUE. 
+```r
+extractCounts(seurat.obj, 
+    assay = "RNA", 
+    genes = c("TBC1D3D","LINC00470"),
+    tibble = TRUE) 
+```
+
 ### ***dendoSeurat.R***:
 ```dendoSeurat()``` allows you to hierarchically cluster a subset of a Seurat object and return a dendrogram. Due to the sheer computational demands of hierarchical clustering, down-sampling of your Seurat object is required. If you'd like both a dendrogram and the hierarchical clustering labels returned, set ```return.clusters``` to the height of the tree you want cut to produce the groupings. 
 ```r
