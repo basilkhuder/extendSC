@@ -3,10 +3,9 @@
 #' @param subcluster.obj A Seurat sub-cluster object
 #' @param cluster.repace Clusters to replace
 #' @param annotation.name Name to store cluster annotations
-#' @return UMAP and a Feature Plot
+#' @return Merged seurat object
 #' @examples
-#' chooseClusterRes(seurat.obj, cluster.res = list(.1,.2,.5), feature.plot = c("gene1","gene2","gene3"))
-#' @export
+#' mergedSubCluster(seurat.obj, subcluster.obj = seurat.sub.obj, cluster.replace = "T Cells", annotation.name = "Seurat_Assignment") 
 #' @export
 mergeSubCluster <- function(seurat.obj, 
                             subcluster.obj, 
