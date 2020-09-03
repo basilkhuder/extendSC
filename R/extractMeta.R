@@ -1,4 +1,4 @@
-#' Easily extract Seurat meta-data information into a tibble
+#' Easily extract Seurat meta-data into a tibble
 #' @param seurat.obj A seurat object. 
 #' @param types The types of meta-data you want to extract. Options are c("Embeddings","Clusters","Module Scores")
 #' @param vars The names within the Seurat object of the meta-data you want to extract. 
