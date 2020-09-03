@@ -83,7 +83,7 @@ chooseClusterRes(seurat.obj,
 ```
 
 ### ***extractMeta.R***:
-```extractMeta()``` allows you to easily extract Seurat meta-data into a tibble. Types of meta-data that it can extract include embeddings, clusters and module scores. Extract meta information can be merged together with ```merge = TRUE```
+```extractMeta()``` allows you to easily extract Seurat meta-data into a tibble. Types of meta-data that it can extract include embeddings, clusters and module scores. Extracted meta information can be merged together with ```merge = TRUE```
 ```r
 extractMeta(seurat.obj, 
     types = c("Clusters","Module Scores","Embeddings"), 
