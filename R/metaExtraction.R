@@ -20,11 +20,14 @@ extractMeta <- function(seurat.obj,
   
   types <- str_to_lower(types)
   meta.list <- vector(mode = "list", length = length(types))
-
+  
   if(any(types %in% "clusters")) { 
     clusters <- vars[which(types %in% "clusters")]
-    clusters <- as_tibble(FetchData(seurat.obj, vars = clusters), rownames = "Cells")
-    meta.list[[which(types %in% "clusters")]] <- clusters
+    clusters.df <- map(clusters, ~as_tibble(FetchData(seurat.obj, vars = .x), rownames = "Cells"))
+    for(i in seq_along(clusters.df)){ 
+      meta.list[[which(types %in% "clusters")[[i]]]] <- clusters.df[[i]]
+    } 
+    
   } 
   
   if(any(types %in% "module scores")) { 
@@ -32,13 +35,16 @@ extractMeta <- function(seurat.obj,
     module.scores.df <- map(module.scores, ~as_tibble(FetchData(seurat.obj, vars = .x), rownames = "Cells"))
     for(i in seq_along(module.scores.df)){ 
       meta.list[[which(types %in% "module scores")[[i]]]] <- module.scores.df[[i]]
-  } 
+    } 
   }
-    
+  
   if(any(types %in% "embeddings")){ 
     embeddings <- vars[which(types %in% "embeddings")]
-    embeddings <- as_tibble(Embeddings(seurat.obj, reduction = embeddings), rownames = "Cells")
-    meta.list[[which(types %in% "embeddings")]] <- embeddings
+    embeddings.df <- map(embeddings, ~as_tibble(Embeddings(seurat.obj, reduction = .x), rownames = "Cells"))
+    for(i in seq_along(embeddings.df)){ 
+      meta.list[[which(types %in% "embeddings")[[i]]]] <- embeddings.df[[i]]
+    } 
+    
   }
   
   if(isTRUE(merge)){ 
