@@ -87,7 +87,7 @@ chooseClusterRes(seurat.obj,
 ```r
 extractMeta(seurat.obj, 
     types = c("Clusters","Module Scores","Embeddings"), 
-    vars = c("Seurat_Assignment, "Module_Scores1", "umap"),
+    vars = c("Seurat_Assignment", "Module_Scores1", "umap"),
     merge = TRUE)
 ```
 
