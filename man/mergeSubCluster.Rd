@@ -16,11 +16,11 @@ mergeSubCluster(seurat.obj, subcluster.obj, cluster.replace, annotation.name)
 \item{cluster.repace}{Clusters to replace}
 }
 \value{
-UMAP and a Feature Plot
+Merged seurat object
 }
 \description{
 Merge a reclusted sub-sample back into main object
 }
 \examples{
-chooseClusterRes(seurat.obj, cluster.res = list(.1,.2,.5), feature.plot = c("gene1","gene2","gene3"))
+mergedSubCluster(seurat.obj, subcluster.obj = seurat.sub.obj, cluster.replace = "T Cells", annotation.name = "Seurat_Assignment") 
 }
