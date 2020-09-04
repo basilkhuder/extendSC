@@ -8,7 +8,6 @@
 #' extractMeta(seurat.obj, types = c("Clusters","Module Scores","Embeddings"), vars = c("Seurat_Assignment, "Module_Scores1", "umap"))
 #' @export
 
-
 extractMeta <- function(seurat.obj, 
                         types, 
                         vars, 
