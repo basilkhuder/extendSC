@@ -41,12 +41,6 @@ extractMeta <- function(seurat.obj,
     meta.list[[which(types %in% "embeddings")]] <- embeddings
   }
   
-  if(any(types %in% "counts")){ 
-    counts <- vars[which(types %in% "counts")]
-    counts <- GetAssayData(seurat.obj, assay = counts)
-    meta.list[[which(types %in% "counts")]] <- counts
-  }
-  
   if(isTRUE(merge)){ 
     return(purrr::reduce(meta.list, full_join))
   } 
