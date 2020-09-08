@@ -7,8 +7,7 @@
 #' @export
 
 crToMTX <- function(directory) {
-  path <- paste(directory, list.files(path = directory,
-                                    pattern = "filtered"), sep = "/")
+  path <- list.files(path = directory, pattern = "filtered", full.names = TRUE)
   mtx <- paste(path, list.files(path = path,
                                 pattern = "matrix"), sep = "/")
   mtx <- Matrix::readMM(mtx)
