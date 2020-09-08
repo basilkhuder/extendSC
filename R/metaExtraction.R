@@ -1,13 +1,3 @@
-#' Easily extract Seurat meta-data into a tibble
-#' @param seurat.obj A seurat object. 
-#' @param types The types of meta-data you want to extract. Options are c("Embeddings","Clusters","Module Scores")
-#' @param vars The names within the Seurat object of the meta-data you want to extract. 
-#' @param merge Whether you want all data to merged. If set to TRUE, data will be merged by Cells. 
-#' @return Meta-data in tibble format
-#' @examples
-#' extractMeta(seurat.obj, types = c("Clusters","Module Scores","Embeddings"), vars = c("Seurat_Assignment, "Module_Scores1", "umap"))
-#' @export
-
 extractMeta <- function(seurat.obj, 
                         types, 
                         vars, 
@@ -72,17 +62,16 @@ extractCounts <- function(seurat.obj,
   counts <- GetAssayData(seurat.obj, assay = assay)
   if(!is.null(genes)){
     counts <- counts[map_dbl(genes, ~ which(rownames(counts) %in% .x)),]
-    }
+  }
   
   if(isTRUE(tibble)){ 
     if(length(genes) == 1){ 
       counts <- as_tibble(counts, rownames = "Cells") %>%
-        mutate(Genes = genes) %>%
-        dplyr::select(Genes, everything())
+        mutate(Genes = genes, .before = Cells)
       return(counts)
-      }
+    }
     counts <- as_tibble(counts, rownames = "Genes") %>%
       pivot_longer(cols = -Genes)
-    }
+  }
   return(counts)
- }
+}
