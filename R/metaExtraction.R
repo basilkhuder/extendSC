@@ -80,7 +80,8 @@ extractCounts <- function(seurat.obj,
       return(counts)
     }
     counts <- as_tibble(counts, rownames = "Genes") %>%
-      pivot_longer(cols = -Genes)
+      pivot_longer(cols = -Genes) %>%
+      rename(Cells = name)
   }
   return(counts)
 }
