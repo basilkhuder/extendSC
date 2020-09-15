@@ -10,6 +10,15 @@ extractMeta <- function(seurat.obj,
   types <- str_to_lower(types)
   meta.list <- vector(mode = "list", length = length(types))
   
+  if(any(types %in% "identity")) { 
+    identity <- vars[which(types %in% "identity")]
+    identity.df <- map(identity, ~as_tibble(FetchData(seurat.obj, vars = .x), rownames = "Cells"))
+    for(i in seq_along(identity.df)){ 
+      meta.list[[which(types %in% "identity")[[i]]]] <- identity.df[[i]]
+    } 
+    
+  } 
+  
   if(any(types %in% "clusters")) { 
     clusters <- vars[which(types %in% "clusters")]
     clusters.df <- map(clusters, ~as_tibble(FetchData(seurat.obj, vars = .x), rownames = "Cells"))
