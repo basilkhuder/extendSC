@@ -23,16 +23,16 @@ crToSeurat <- function(directory,
   barcodes <- map(str_c(path,"barcodes.tsv",sep = "/"), ~
                     read_tsv(.x, col_names = FALSE, col_types = cols())$X1) 
   
-  matrix <- imap(matrix, ~ set_colnames(.x, barcodes[[.y]]))
-  matrix <- imap(matrix, ~ set_rownames(.x, features[[.y]]))
-  matrix <- imap(matrix, ~ CreateSeuratObject(.x, min.cells = min.cells,
-                                              project = sample.names[[.y]],
-                                              min.features = min.features))
+  matrix <- imap(matrix, ~ set_colnames(.x, barcodes[[.y]]) %>%
+                 set_rownames(.x, features[[.y]]) %>%
+                 CreateSeuratObject(.x, 
+                                    min.cells = min.cells,
+                                    project = sample.names[[.y]],
+                                    min.features = min.features))
   
   if (length(matrix) == 1){ 
     matrix <- matrix[[1]]
   }
-  
   
   if (isTRUE(merge)){
     matrix <- merge(matrix[[1]], 
