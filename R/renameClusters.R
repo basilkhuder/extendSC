@@ -55,5 +55,6 @@ renameClusters <- function(seurat.obj,
     seurat.obj[[new.annotation.name]] <- annotated.ident
     
   }
+  return(seurat.obj)
   
 }
