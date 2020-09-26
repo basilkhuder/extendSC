@@ -11,23 +11,35 @@
 #' @export
 
 processSeurat <- function(seurat.obj,
+                          scTransform = FALSE,
+                          nfeatures = 3000,
                           dims = 1:50,
                           cluster.res = 0.2,
-                          vars_to_regress = c("orig.ident", "percent.mt"),
+                          npcs = 50, 
+                          vars_to_regress = NULL,
                           seed.use = 24,
                           n.cores = NULL) {
+  
   if (!is.null(n.cores)) {
     if_else(n.cores > availableCores()[[1]],
             stop("n.cores is greater than available system cores"),
             plan("multicore", workers = n.cores))
   }
   
-  seurat.obj <-
-    seurat.obj %>% SCTransform(vars.to.regress = vars_to_regress,
-                               verbose = FALSE) %>%
-    RunPCA() %>% FindNeighbors(dims = dims)
-  seurat.obj <- FindClusters(seurat.obj, resolution = cluster.res)
-  seurat.obj <-
+  if(isTRUE(scTransform)){ 
+    seurat.obj <- SCTransform(vars.to.regress = vars_to_regress,
+                                 verbose = FALSE, seed.use = seed.use) 
+    } else { 
+      
+      seurat.obj <- seurat.obj %>%
+        NormalizeData(.) %>%
+        FindVariableFeatures(., nfeatures = nfeatures) %>%
+        ScaleData(.)
+    } 
+  
+  seurat.obj <- seurat.obj %>% 
+    RunPCA(npcs) %>% FindNeighbors() %>%
+    FindClusters(seurat.obj, resolution = cluster.res) %>%
     RunUMAP(
       seurat.obj,
       reduction = "pca",
