@@ -3,7 +3,7 @@
 #' @param min_cells Include features detected in at least this many cells.
 #' @param min_features Include cells where at least this many features are detected 
 #' @param sample.names Names for each of the samples
-#' @param gz Whether or not the files are gunzipped
+#' @param gz Whether or not the files are gz compressed
 #' @return A Seurat object 
 #' @examples
 #' crToSeurat(directory = "Files", min_cells = 3, min_features = 3)
