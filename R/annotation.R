@@ -38,7 +38,7 @@ renameClusters <- function(seurat.obj,
                             Annotations = cluster.names) %>%
     full_join(current.idents) %>%
     mutate(Annotations = factor(Annotations, levels = unique(Annotations))) %>%
-    select(-Idents) %>%
+    dplyr::select(-Idents) %>%
     relocate(Cells, .before = Annotations) %>%
     deframe()
   
