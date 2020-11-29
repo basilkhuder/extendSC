@@ -26,7 +26,7 @@ processSeurat <- function(seurat.obj,
             plan("multicore", workers = n.cores))
   }
   
-  if(isTRUE(scTransform)){ 
+  if (scTransform) { 
     seurat.obj <- SCTransform(vars.to.regress = vars_to_regress,
                                  verbose = FALSE, seed.use = seed.use) 
     } else { 
