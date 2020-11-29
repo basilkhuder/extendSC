@@ -3,14 +3,14 @@ extractMeta <- function(seurat.obj,
                         vars, 
                         merge = TRUE) { 
   
-  if(length(types) != length(vars)){ 
+  if (length(types) != length(vars)) { 
     stop("The amount of types need to be equal to the amount of variables.")
   }
   
   types <- str_to_lower(types)
   meta.list <- vector(mode = "list", length = length(types))
   
-  if(any(types %in% "identity")) { 
+  if (any(types %in% "identity")) { 
     identity <- vars[which(types %in% "identity")]
     identity.df <- map(identity, ~as_tibble(FetchData(seurat.obj, vars = .x), rownames = "Cells"))
     for(i in seq_along(identity.df)){ 
@@ -19,33 +19,33 @@ extractMeta <- function(seurat.obj,
     
   } 
   
-  if(any(types %in% "clusters")) { 
+  if (any(types %in% "clusters")) { 
     clusters <- vars[which(types %in% "clusters")]
     clusters.df <- map(clusters, ~as_tibble(FetchData(seurat.obj, vars = .x), rownames = "Cells"))
-    for(i in seq_along(clusters.df)){ 
+    for(i in seq_along(clusters.df)) { 
       meta.list[[which(types %in% "clusters")[[i]]]] <- clusters.df[[i]]
     } 
     
   } 
   
-  if(any(types %in% "module scores")) { 
+  if (any(types %in% "module scores")) { 
     module.scores <- vars[which(types %in% "module scores")]
     module.scores.df <- map(module.scores, ~as_tibble(FetchData(seurat.obj, vars = .x), rownames = "Cells"))
-    for(i in seq_along(module.scores.df)){ 
+    for(i in seq_along(module.scores.df)) { 
       meta.list[[which(types %in% "module scores")[[i]]]] <- module.scores.df[[i]]
     } 
   }
   
-  if(any(types %in% "embeddings")){ 
+  if (any(types %in% "embeddings")) { 
     embeddings <- vars[which(types %in% "embeddings")]
     embeddings.df <- map(embeddings, ~as_tibble(Embeddings(seurat.obj, reduction = .x), rownames = "Cells"))
-    for(i in seq_along(embeddings.df)){ 
+    for(i in seq_along(embeddings.df)) { 
       meta.list[[which(types %in% "embeddings")[[i]]]] <- embeddings.df[[i]]
     } 
     
   }
   
-  if(isTRUE(merge)){ 
+  if (merge) { 
     return(purrr::reduce(meta.list, full_join))
   } 
   return(meta.list)
@@ -67,14 +67,13 @@ extractCounts <- function(seurat.obj,
                           genes = NULL,
                           tibble = FALSE) { 
   
-  
   counts <- GetAssayData(seurat.obj, assay = assay)
-  if(!is.null(genes)){
-    counts <- counts[map_dbl(genes, ~ which(rownames(counts) %in% .x)),]
+  if(!is.null(genes)) {
+    counts <- counts[map_dbl(genes, ~ which(rownames(counts) %in% .x)), ]
   }
   
-  if(isTRUE(tibble)){ 
-    if(length(genes) == 1){ 
+  if (tibble) { 
+    if (length(genes) == 1) { 
       counts <- as_tibble(counts, rownames = "Cells") %>%
         mutate(Genes = genes, .before = Cells)
       return(counts)
@@ -91,7 +90,7 @@ produceMarkers <- function(seurat.obj,
                            cells.per.ident = Inf,
                            top.gene.plot = TRUE,
                            output.name = NULL,
-                           test.use = "wilcox"){ 
+                           test.use = "wilcox") { 
   
   markers <- FindAllMarkers(object = seurat.obj, 
                             only.pos = TRUE, 
@@ -107,13 +106,13 @@ produceMarkers <- function(seurat.obj,
   print(top3)
   
   file.name <- if_else(is.null(output.name),
-                       str_c(str_replace_all(Sys.Date(),"-","_"),"_markers.txt"),
+                       str_c(str_replace_all(Sys.Date(), "-", "_"), "_markers.txt"),
                        output.name)
   write_tsv(markers, path = file.name)
   
-  if(top.gene.plot == TRUE){
+  if (top.gene.plot) {
     cluster.averages <- AverageExpression(object = seurat.obj, return.seurat = TRUE)
-    print(pheatmap(GetAssayData(cluster.averages)[unique(top3$gene),]))
+    print(pheatmap(GetAssayData(cluster.averages)[unique(top3$gene), ]))
   }
   return(markers)
 }
