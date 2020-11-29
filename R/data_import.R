@@ -18,7 +18,7 @@ crToSeurat <- function(directory,
   
   components <- c("matrix.mtx", "features.tsv", "barcodes.tsv")
   
-  if(isTRUE(gz)) {
+  if (gz) {
     components <- map_chr(components, ~str_c(.,".gz"))
   } 
   
@@ -40,11 +40,11 @@ crToSeurat <- function(directory,
                                       project = sample.names[[.y]],
                                       min.features = min.features))
   
-  if (length(matrix) == 1){ 
+  if (length(matrix) == 1) { 
     matrix <- matrix[[1]]
   }
   
-  if (isTRUE(merge)){
+  if (merge) {
     matrix <- merge(matrix[[1]], 
                     matrix[-1],
                     add.cell.ids = sample.names)
