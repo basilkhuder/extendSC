@@ -5,7 +5,7 @@ Authors@R:
     person(given = "Basil",
            family = "Khuder",
            role = c("aut", "cre"),
-	   email = "bkhuderr@outlook.com")
+	   email = "basilskhuder@gmail.com")
 Description: Extends functionalities of scRNA-Seq workflows using Seurat. 
 Encoding: UTF-8
 LazyData: true
